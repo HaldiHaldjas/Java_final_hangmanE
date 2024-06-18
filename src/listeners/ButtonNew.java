@@ -1,5 +1,6 @@
 package listeners;
 
+import models.Database;
 import models.Model;
 import views.View;
 
@@ -30,7 +31,12 @@ public class ButtonNew implements ActionListener {
             view.getGameTimer().stopTime();
             view.getGameTimer().setRunning(false);
         }
-    // TODO label tyhjaks, andmebaasist juhuslik sona, sona tahtede arvu jagu allkriipse
-        // meetod, mis seotud juhusliku sonaga andmebaasist. kategooriast
+        /*
+         * genereerib andmebaasist valitud kategooria alusel juhusliku sõna
+         */
+        new Database(model).getWord(model.getSelectedCategory());
+
+        // TODO label tyhjaks, andmebaasist juhuslik sona, sona tahtede arvu jagu allkriipse
+
     }
 }

@@ -19,9 +19,9 @@ public class Model {
      *  hangman_words_ee_test.db - Eestikeelsed sõnad, edetabel EI ole tühi
      */
     private String databaseFile = "hangman_words_ee_test.db";
-
     private String selectedCategory; // Vaikimisi valitud kategooria
     private String[] cmbCategories; // Rippmenüü sisu
+    private String randomWord;
 
     // muutujad piltide kaustanimeks ja list piltide jaoks
     /**
@@ -39,12 +39,13 @@ public class Model {
      * Edetabeli mugavaks kasutamiseks
      */
     private DefaultTableModel dtm;
+
     /**
      * Edetabeli andmed listis
      */
     private List<DataScore> dataScores = new ArrayList<>();
 
-
+    private List<String> words = new ArrayList<>();
 
     public Model(String dbName) {
         if(dbName != null) {
@@ -65,12 +66,11 @@ public class Model {
             imageFiles.add(file.getAbsolutePath());
         }
         Collections.sort(imageFiles);
-        System.out.println(imageFiles);
-
+        // System.out.println(imageFiles);
 
     }
 
-    /**
+    /*
      * Rippmenüü esimene valik enne kategooriaid
      * @return teksti "Kõik kategooriad"
      */
@@ -78,7 +78,7 @@ public class Model {
         return chooseCategory;
     }
 
-    /**
+    /*
      * Millise andmebaasiga on tegemist
      * @return andmebaasi failinimi
      */
@@ -86,7 +86,7 @@ public class Model {
         return databaseFile;
     }
 
-    /**
+    /*
      * Seadistab uue andmebaasi failinime, kui see saadi käsurealt
      * @param databaseFile uus andmebaasi failinimi
      */
@@ -162,6 +162,32 @@ public class Model {
      * */
     public void setDataScores(List<DataScore> dataScores) {
         this.dataScores = dataScores;
+    }
+
+
+    /**
+     * Loeb sõnad andmebaasist
+     * @return sõnad
+     */
+
+    public void getDatabaseWords(List<String> words) {
+        this.words = words;
+    }
+
+    /**
+     * andmebaasi sõnad edasiseks kui vaja
+     */
+//    public void setDataWords(List<String> words) {
+//        this.words = words;
+//    }
+//
+
+    /**
+     * Database klassist tulev juhuslik sõna
+     * @return word
+     * */
+    public void setRandomWord(String word) {
+        this.randomWord = word;
     }
 }
 

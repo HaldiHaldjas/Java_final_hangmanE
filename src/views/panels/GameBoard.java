@@ -13,6 +13,7 @@ public class GameBoard extends JPanel {
      * Klassisisene mudel, mille väärtus saadakse View konstruktorist ja loodud MainApp-is
      */
     private Model model;
+
     /**
      * GridBagLayout jaoks JComponent paigutamiseks "Excel" variandis
      */
@@ -134,7 +135,7 @@ public class GameBoard extends JPanel {
 
     }
 
-    /**
+    /*
      * Loob võllapuu pildikasti kus näitab jooksvat pilti
      * @param components kuhu lisatakse komponent (JLabel)
      */
@@ -152,7 +153,7 @@ public class GameBoard extends JPanel {
 
     }
 
-    /**
+    /*
      * Tegemist on ajutise pildiga kuna piltide kausta (images) pole algselt loetud
      * @return pilt suurusega 125x125 punase värviga
      * <a href="https://stackoverflow.com/questions/47137636/swing-new-imageicon-from-color">Viide õpetusele</a>

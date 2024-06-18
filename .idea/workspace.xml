@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="Muudetud mudelit, README, Settings Database ja listud ComboboxChange." />
+    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="Muudetud mudelit, README, Settings Database ja listud ComboboxChange.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/listeners/ButtonNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/listeners/ComboboxChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ComboboxChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Model.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +35,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/OkramL/Hangman_2024_Student.git",
+    "url": "https://github.com/HaldiHaldjas/hangman_java_gui_final.git",
     "accountId": "687e7faa-eb1a-48f3-97e6-4b6a96f76f9a"
   }
 }]]></component>
@@ -99,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717920889536</updated>
       <workItem from="1717920890548" duration="19722000" />
-      <workItem from="1718696464555" duration="19476000" />
+      <workItem from="1718696464555" duration="37100000" />
     </task>
     <task id="LOCAL−00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -145,5 +151,16 @@
     <MESSAGE value="README.md õigesse kohta" />
     <MESSAGE value="Muudetud mudelit, README, Settings Database ja listud ComboboxChange." />
     <option name="LAST_COMMIT_MESSAGE" value="Muudetud mudelit, README, Settings Database ja listud ComboboxChange." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/models/Database.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
