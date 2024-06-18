@@ -20,7 +20,7 @@ public class RealTimer implements ActionListener {
 
     public RealTimer(View view) {
         this.view = view;
-        timer = new Timer(1000, this);
+        timer = new Timer(1000, this); // aega uuendatakse iga sekundi järel
     }
 
     /**

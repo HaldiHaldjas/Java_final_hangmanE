@@ -41,6 +41,10 @@ public class Settings extends JPanel {
     private JButton btnLeaderboard;
 
     /**
+     * Silt failinime jaoks*/
+    private JLabel lblFile;
+
+    /**
      * Settings JPanel konstruktor
      * @param model mudel mis loodud MainApp-is
      */
@@ -85,20 +89,33 @@ public class Settings extends JPanel {
         components.add(lblCategory, gbc);
 
         // TODO muuta JComboBox sulgude sisu
-        cmbCategory = new JComboBox<>(new String[]{model.getChooseCategory()}); // Teksti massiiv ühe elemendiga
+        // cmbCategory = new JComboBox<>(new String[]{model.getChooseCategory()}); // Teksti massiiv ühe elemendiga
+        cmbCategory = new JComboBox<>(model.getCmbCategories()); // Teksti massiiv kõikide elementidega
         gbc.gridx = 1;
         gbc.gridy = 1;
         components.add(cmbCategory, gbc);
 
+        // Label failinime jaoks kolmas rida
+        lblFile = new JLabel(model.getDatabaseFile(), JLabel.CENTER);
+        lblFile.setForeground(Color.RED);
+        lblFile.setFont(new Font("Verdana", Font.BOLD, 14));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2; // 2 veergu
+        components.add(lblFile, gbc);
+
+
+
         // Kolmas rida kaks nuppu kõrvuti. Teine nupp küsitav :)
         btnNewGame = new JButton("Uus mäng");
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1; // laius 1 veerg
         components.add(btnNewGame, gbc);
 
         btnLeaderboard = new JButton("Edetabel");
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         components.add(btnLeaderboard, gbc);
 
     }
