@@ -71,6 +71,9 @@ public class GameBoard extends JPanel {
 
         add(components, BorderLayout.CENTER); // Paiguta komponentide paneel mängulauale (keskele)
         add(pnlResult, BorderLayout.NORTH); // Paiguta äraarvatava sõna paneel ülesse serva
+
+        // request focus to txtChar
+        txtChar.addNotify();
     }
 
     /**
@@ -104,6 +107,7 @@ public class GameBoard extends JPanel {
                 requestFocus();
             }
         };
+
         txtChar.setEnabled(false); // Vaikimisi lahtrisse kirjuta ei saa
         txtChar.setHorizontalAlignment(JTextField.CENTER); // Kirjuta lahtri keskele
         // TODO siia rida, et tekstikasti saab ainult ühe tähe kirjutada

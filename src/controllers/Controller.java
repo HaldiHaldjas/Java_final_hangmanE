@@ -7,6 +7,8 @@ import listeners.ComboboxChange;
 import models.Model;
 import views.View;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller {
@@ -20,7 +22,8 @@ public class Controller {
         // saada nupu funktsionaalsus
         view.getGameBoard().getBtnSend().addActionListener(new ButtonSend(model, view));
 
-        // view.updateResultLabel(formattedWord);
-
+        // enter saada nupu asemel
+        // view.getGameBoard().getTxtChar().addActionListener(new ButtonSend(model, view));
+        view.getGameBoard().getTxtChar().getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "sendAction");
     }
 }
