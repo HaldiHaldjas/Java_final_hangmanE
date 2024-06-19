@@ -147,13 +147,15 @@ public class View extends JFrame {
         }
     }
     /**
-     * Muudab aja min on sekunidtes kujule mm:ss 90 sek on 01:30
+     * Muudab aja min on sekundites kujule mm:ss 90 sek on 01:30
      * @params seconds sekundid, taisarv
      * @return vormindatud string
      */
+
     private String convertSecToMMSS(int seconds) {
         int min = seconds / 60;
         int sec = seconds % 60;
         return String.format("%02d:%02d", min, sec);
     }
+
 }

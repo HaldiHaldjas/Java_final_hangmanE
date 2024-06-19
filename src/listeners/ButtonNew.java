@@ -31,10 +31,13 @@ public class ButtonNew implements ActionListener {
             view.getGameTimer().stopTime();
             view.getGameTimer().setRunning(false);
         }
-        /*
+        /**
          * genereerib andmebaasist valitud kategooria alusel juhusliku sõna
          */
         new Database(model).getWord(model.getSelectedCategory());
+        view.getGameBoard().initGame();
+        model.formatWordForDisplay(model.getRandomWord());
+
 
         // TODO label tyhjaks, andmebaasist juhuslik sona, sona tahtede arvu jagu allkriipse
 

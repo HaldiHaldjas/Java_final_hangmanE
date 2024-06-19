@@ -58,6 +58,29 @@ public class Model {
         selectedCategory = chooseCategory; // Vaikimisi "Kõik kategooriad"
     }
 
+    public List<String> getWords() {
+        return words;
+    }
+
+    public void setWords(List<String> words) {
+        this.words = words;
+    }
+
+
+    public String formatWordForDisplay(String word) {
+        StringBuilder displayWord = new StringBuilder();
+        word = word.toLowerCase();
+        for (char c : word.toCharArray()) {
+            if (Character.isLetter(c)) {
+                displayWord.append("_ ");
+            } else {
+                displayWord.append(c).append(" ");
+            }
+        }
+        System.out.println("displayword from model: " + displayWord);
+        return displayWord.toString().trim();
+    }
+
     private void readImagesFolder() {
         File folder  = new File(imagesFolder); // loo kausta objekt
         File[] files = folder.listFiles(); // loeb koik failid objekti list massiivina
@@ -70,7 +93,7 @@ public class Model {
 
     }
 
-    /*
+    /**
      * Rippmenüü esimene valik enne kategooriaid
      * @return teksti "Kõik kategooriad"
      */
@@ -78,7 +101,7 @@ public class Model {
         return chooseCategory;
     }
 
-    /*
+    /**
      * Millise andmebaasiga on tegemist
      * @return andmebaasi failinimi
      */
@@ -86,7 +109,7 @@ public class Model {
         return databaseFile;
     }
 
-    /*
+    /**
      * Seadistab uue andmebaasi failinime, kui see saadi käsurealt
      * @param databaseFile uus andmebaasi failinimi
      */
@@ -170,9 +193,9 @@ public class Model {
      * @return sõnad
      */
 
-    public void getDatabaseWords(List<String> words) {
-        this.words = words;
-    }
+//    public void getDatabaseWords(List<String> words) {
+//        this.words = words;
+//    }
 
     /**
      * andmebaasi sõnad edasiseks kui vaja
@@ -183,12 +206,20 @@ public class Model {
 //
 
     /**
-     * Database klassist tulev juhuslik sõna
+     * Loeb sisse database klassist tuleva juhusliku sõna
      * @return word
      * */
     public void setRandomWord(String word) {
         this.randomWord = word;
     }
+    /**
+     * Ligipääs andmebaasist kategooria alusel juhuslikult valitud sõnale
+     * @params randomWord
+     */
+    public String getRandomWord() {
+        return randomWord;
+    }
+
 }
 
 

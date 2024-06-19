@@ -58,11 +58,11 @@ public class GameBoard extends JPanel {
         gbc.insets = new Insets(2,2,2,2); // Iga lahtri ümber 2px tühja ruumi
         //gbc.anchor = GridBagConstraints.WEST; // "Joondab vasakult"
 
-        JPanel components = new JPanel(new GridBagLayout()); // Paneel kuhu pannakse enamus selle paneeli kolmponentidest
+        JPanel components = new JPanel(new GridBagLayout()); // Paneel, kuhu pannakse enamus selle paneeli kolmponentidest
         components.setBackground(new Color(140,185,250)); // Komponent paneeli taustavärv (miski sinine)
         components.setBorder(new EmptyBorder(2,2,2,2)); // Paneelile ümebrringi tühi ruumi.
 
-        JPanel pnlResult = new JPanel(new FlowLayout()); // See panell näitab äraarvatavat sõna (T _ _ E M _ S)
+        JPanel pnlResult = new JPanel(new FlowLayout()); // See paneel näitab äraarvatavat sõna (T _ _ E M _ S)
         pnlResult.setBackground(new Color(250,200,235)); // Äraarvatava sõna paneeli taustavärv (rõõsa laadne)
 
         createUIComponents(components); // Enamus komponente siin paneelil
@@ -93,7 +93,7 @@ public class GameBoard extends JPanel {
         gbc.gridwidth = 1; // Iga komponent ühte lahtrisse mitte üle kahe
         components.add(lblChar, gbc);
 
-        /*
+        /**
          * Loome sisestuskasti ja see on kogu aeg fookuses (JTextFIeld)
          * https://stackoverflow.com/questions/4640138/setting-the-focus-to-a-text-field
          */
@@ -135,7 +135,7 @@ public class GameBoard extends JPanel {
 
     }
 
-    /*
+    /**
      * Loob võllapuu pildikasti kus näitab jooksvat pilti
      * @param components kuhu lisatakse komponent (JLabel)
      */
@@ -153,7 +153,7 @@ public class GameBoard extends JPanel {
 
     }
 
-    /*
+    /**
      * Tegemist on ajutise pildiga kuna piltide kausta (images) pole algselt loetud
      * @return pilt suurusega 125x125 punase värviga
      * <a href="https://stackoverflow.com/questions/47137636/swing-new-imageicon-from-color">Viide õpetusele</a>
@@ -169,13 +169,66 @@ public class GameBoard extends JPanel {
 
     /**
      * Äraarvatava sõna paneeli loomine
-     * @param pnlResult paneel kuhu näidatakse äraarvatavat sõna (T _ _ E M _ S)
+     * @param pnlResult paneel, kuhu näidatakse äraarvatavat sõna (T _ _ E M _ S)
      */
     private void createResultPlace(JPanel pnlResult) {
         lblResult = new JLabel("T _ _ E M _ S");
         lblResult.setFont(new Font("Courier New", Font.BOLD, 24)); // Kirjastiil ja suurus äraarvataval sõnal
         pnlResult.add(lblResult); // See paneel (pnlResult) on FlowLayout mitte GridBagLayout!
     }
+
+    /**
+     * Mängu initsialiseerimine
+     * */
+    public void initGame() {
+
+        // andmebaasist kategooria alusel valitud sõna
+        String word = model.getRandomWord();
+        if(word != null) {
+            model.setRandomWord(word);
+            System.out.println("Sõna edukalt valitud " + word);
+        } else {
+            word = "Sõna ei õnnestunud valida!(initGame)";
+            model.setRandomWord(word);
+            System.out.println(word);
+        }
+        // System.out.println("word from initGame" + this.getRandomWord());
+        updateLblResult(word);
+        //
+    }
+
+    public void updateLblResult(String word) {
+
+        if (word != null) {
+            String formattedWord = model.formatWordForDisplay(word);
+            lblResult.setText(formattedWord);
+            System.out.println("Juhuslikult valitud ja vormindatud sõna: " + formattedWord);
+        } else {
+            lblResult.setText("Sõna ei õnnestunud valida!");
+        }
+    }
+
+//    public void updateLblResult(String word) {
+//        if (word != null) {
+//            StringBuilder formattedWord = new StringBuilder();
+//            for (int i = 0; i < word.length(); i++) {
+//                if (Character.isLetter(word.charAt(i))) {
+//                    formattedWord.append("_ ");
+//                } else {
+//                    formattedWord.append(word.charAt(i)).append(" ");
+//                }
+//            }
+//            lblResult.setText(formattedWord.toString().trim());
+//            System.out.println("Juhuslikult valitud sõna: " + formattedWord.toString().trim());
+//        } else {
+//            lblResult.setText("Sõna ei õnnestunud valida!");
+//
+//        }
+//    }
+
+//    private void createNewResultPlace(JPanel pnlResult) {
+//
+//    }
 
     // Komponentide getterid
 
@@ -203,6 +256,10 @@ public class GameBoard extends JPanel {
         return lblImage;
     }
 
+    /**
+    * Result label peab olema mujalt kättesaadav
+    * @return lblResult
+    */
     public JLabel getLblResult() {
         return lblResult;
     }

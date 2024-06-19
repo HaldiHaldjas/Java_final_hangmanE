@@ -2,6 +2,7 @@ package controllers;
 
 import listeners.ButtonCancel;
 import listeners.ButtonNew;
+import listeners.ButtonSend;
 import listeners.ComboboxChange;
 import models.Model;
 import views.View;
@@ -16,7 +17,10 @@ public class Controller {
         view.getSettings().getBtnNewGame().addActionListener(new ButtonNew(model, view));
         // katkesta nupu funktsionaalsus
         view.getGameBoard().getBtnCancel().addActionListener(new ButtonCancel(model, view));
+        // saada nupu funktsionaalsus
+        view.getGameBoard().getBtnSend().addActionListener(new ButtonSend(model, view));
 
+        // view.updateResultLabel(formattedWord);
 
     }
 }

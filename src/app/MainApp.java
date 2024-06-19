@@ -52,6 +52,7 @@ public class MainApp {
                     }
                 }
                 new MainApp(dbName);
+
             }
         });
     }

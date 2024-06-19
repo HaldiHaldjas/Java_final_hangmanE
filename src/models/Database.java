@@ -107,7 +107,7 @@ public class Database {
     public void getWord(String chosenCategory) {
         // String sql = "SELECT * FROM words WHERE category = '" + chosenCategory + "';";
         String sql = "SELECT word FROM words WHERE category LIKE ? ORDER BY random() LIMIT 1;";
-        System.out.println("Valitud kategooria: " + chosenCategory);
+        // System.out.println("Valitud kategooria: " + chosenCategory);
         try {
             Connection connection = this.dbConnection();
             PreparedStatement randomWord = connection.prepareStatement(sql);
@@ -120,7 +120,7 @@ public class Database {
                 ResultSet rs = randomWord.executeQuery();
                 String word = rs.getString("word");
                 model.setRandomWord(word); // juhuslik sõna kirjutatakse modelisse
-            System.out.println("Juhuslik sõna DB klassist: " + word);
+            // System.out.println("Juhuslik sõna DB klassist: " + word);
             connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
