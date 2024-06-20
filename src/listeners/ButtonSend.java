@@ -85,10 +85,24 @@ public class ButtonSend implements ActionListener, KeyListener {
             updateImage();
         }
         view.getGameBoard().getLblResult().setText(guessedWord.toString());
+
+        // Check if the game should end based on the guessed word
+        if (model.checkGameEnd(guessedWord.toString().replaceAll("\\s+", ""))) {
+            // Game should end, perform end game actions
+            endGame();
+        }
+    }
+
+    // Method to perform actions when the game ends
+    private void endGame() {
+        // Example: Show game end screen, disable input, etc.
+        view.showGameEndScreen();
+        // Additional actions as needed
     }
 
     private void updateImage() {
         ImageIcon imageIcon = new ImageIcon(Arrays.toString(model.getCurrentImagePath()));
         view.getGameBoard().getLblImage().setIcon(imageIcon);
     }
+
 }

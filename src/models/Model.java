@@ -108,6 +108,13 @@ public class Model {
         currentWrongGuesses++;
     }
 
+    public boolean checkGameEnd(String guessedWord) {
+        if (guessedWord != null && guessedWord.equalsIgnoreCase(randomWord)) {
+            return true; // Guessed word matches the random word, game ends
+        }
+        return false; // Guessed word does not match the random word, game continues
+    }
+
     // Method to retrieve current wrong guesses count
     public int getCurrentWrongGuesses() {
         return currentWrongGuesses;

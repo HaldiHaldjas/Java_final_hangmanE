@@ -162,4 +162,22 @@ public class View extends JFrame {
         return String.format("%02d:%02d", min, sec);
     }
 
+    public void showGameEndScreen() {
+        // Perform actions to show game end screen
+        JOptionPane.showMessageDialog(this,
+                "Arvasid õige sõna ära!",  // Message displayed in the dialog
+                "Mäng läbi",   // Title of the dialog
+                JOptionPane.INFORMATION_MESSAGE);  // Message type
+
+        // Stop the game timer
+        if (gameTimer != null) {
+            gameTimer.stopTime();
+
+        }
+
+        // muudab tabid taas klikitavals/halvab mängunupud
+        this.showButtons();  // This method is assumed to be implemented to disable certain UI components
+    }
+
+
 }
