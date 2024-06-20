@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="fookus ja enter nupuvajutusena">
+    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="game over message">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/listeners/ButtonSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonSend.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Model.java" afterDir="false" />
@@ -156,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718803950395</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="game over message">
+      <option name="closed" value="true" />
+      <created>1718882399281</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718882399281</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +189,8 @@
     <MESSAGE value="sõna kategooria ja juhusliku sõna genereerimine" />
     <MESSAGE value="sõnade võrdlemine ja labeli muutmine" />
     <MESSAGE value="fookus ja enter nupuvajutusena" />
-    <option name="LAST_COMMIT_MESSAGE" value="fookus ja enter nupuvajutusena" />
+    <MESSAGE value="game over message" />
+    <option name="LAST_COMMIT_MESSAGE" value="game over message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

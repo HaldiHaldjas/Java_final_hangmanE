@@ -23,12 +23,12 @@ public class Model {
     private String[] cmbCategories; // Rippmenüü sisu
     private String randomWord;
 
-    // muutujad piltide kaustanimeks ja list piltide jaoks
     /**
      * Kaust, kus on võllapuu pildid
      */
     private String imagesFolder = "images";
 
+    private final int MAX_WRONG_GUESSES = 11;
     private int currentWrongGuesses = 0;
 
     /**
@@ -95,6 +95,17 @@ public class Model {
 
     }
 
+    public void incrementWrongGuesses() {
+        if (currentWrongGuesses < MAX_WRONG_GUESSES) {
+            currentWrongGuesses++;
+        }
+    }
+
+    // Method to retrieve current wrong guesses count
+    public int getCurrentWrongGuesses() {
+        return currentWrongGuesses;
+    }
+
     public String[] getCurrentImagePath() {
         // piltide indeks on sama, mis valede arvamiste arv
         int index = getCurrentWrongGuesses();
@@ -104,25 +115,20 @@ public class Model {
         return null;
     }
 
-    public void incrementWrongGuesses() {
-        currentWrongGuesses++;
+    public void resetWrongGuesses() {
+        currentWrongGuesses = 0;
     }
 
     public boolean checkGameEnd(String guessedWord) {
         if (guessedWord != null && guessedWord.equalsIgnoreCase(randomWord)) {
             return true; // Guessed word matches the random word, game ends
         }
-        return false; // Guessed word does not match the random word, game continues
+        if (currentWrongGuesses >= 11) {
+            return true; // Reached maximum wrong guesses, game ends
+        }
+        return false; // Game continues
     }
 
-    // Method to retrieve current wrong guesses count
-    public int getCurrentWrongGuesses() {
-        return currentWrongGuesses;
-    }
-
-    public void resetWrongGuesses() {
-        currentWrongGuesses = 0;
-    }
 
     /**
      * Rippmenüü esimene valik enne kategooriaid
@@ -187,6 +193,7 @@ public class Model {
     public List<String> getImageFiles() {
         return imageFiles;
     }
+
     /**
      * @return DefaulTableModeli
      * */

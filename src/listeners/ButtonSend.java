@@ -73,6 +73,7 @@ public class ButtonSend implements ActionListener, KeyListener {
         String word = model.getRandomWord().toLowerCase();
         StringBuilder guessedWord = new StringBuilder(view.getGameBoard().getLblResult().getText());
         boolean found = false;
+
         for (int i = 0; i < word.length(); i++) {
             if (Character.toLowerCase(word.charAt(i)) == inputChar) {
                 found = true;
@@ -82,27 +83,14 @@ public class ButtonSend implements ActionListener, KeyListener {
         if (!found) {
             view.getGameBoard().getLblError().setText(view.getGameBoard().getLblError().getText() + inputChar + " ");
             model.incrementWrongGuesses();
-            updateImage();
+            view.updateImage();
         }
         view.getGameBoard().getLblResult().setText(guessedWord.toString());
 
         // Check if the game should end based on the guessed word
         if (model.checkGameEnd(guessedWord.toString().replaceAll("\\s+", ""))) {
             // Game should end, perform end game actions
-            endGame();
+            view.showGameEndScreen();
         }
     }
-
-    // Method to perform actions when the game ends
-    private void endGame() {
-        // Example: Show game end screen, disable input, etc.
-        view.showGameEndScreen();
-        // Additional actions as needed
-    }
-
-    private void updateImage() {
-        ImageIcon imageIcon = new ImageIcon(Arrays.toString(model.getCurrentImagePath()));
-        view.getGameBoard().getLblImage().setIcon(imageIcon);
-    }
-
 }
