@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 public class GameBoard extends JPanel {
     /**
@@ -101,11 +102,12 @@ public class GameBoard extends JPanel {
          * https://stackoverflow.com/questions/4640138/setting-the-focus-to-a-text-field
          */
         txtChar = new JTextField("", 10) {
-            @Override
-            public void addNotify() { // tekstikursor vilkuma, fookus
-                super.addNotify();
-                requestFocus();
-            }
+            // fookuse seadmine on ButtonSend klassis
+//            @Override
+//            public void addNotify() { // tekstikursor vilkuma, fookus
+//                super.addNotify();
+//                requestFocus();
+//            }
         };
 
         txtChar.setEnabled(false); // Vaikimisi lahtrisse kirjuta ei saa
@@ -117,7 +119,7 @@ public class GameBoard extends JPanel {
         components.add(txtChar, gbc);
 
         // Kolmas rida (Silt üle kahe veeru)
-        lblError = new JLabel("Vigased tähed: ");
+        lblError = new JLabel("Valed tähed: ");
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2; // Üle kahe lahtri (kaks lahtrit üheks)
@@ -136,8 +138,12 @@ public class GameBoard extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 3;
         components.add(btnCancel, gbc);
-
     }
+
+//    public void updateImage(int imageIndex) {
+//        ImageIcon imageIcon = new ImageIcon(model.getImageFiles().get(imageIndex));
+//        lblImage.setIcon(imageIcon);
+//    }
 
     /**
      * Loob võllapuu pildikasti kus näitab jooksvat pilti
@@ -147,9 +153,8 @@ public class GameBoard extends JPanel {
         lblImage = new JLabel();
         // TODO pildid mällu lugemata, seega võllapuud ei näe vaid värviline pildikast. Asendada temporaryImage() õigega
         // ImageIcon imageIcon = new ImageIcon(temporaryImage()); // Sulgude osa täita õigesti ja pilt on maagiliselt näha
-        ImageIcon imageIcon = new ImageIcon(model.getImageFiles().getLast()); // Sulgude osa täita õigesti ja pilt on maagiliselt näha
+        ImageIcon imageIcon = new ImageIcon(Arrays.toString(model.getCurrentImagePath())); // Sulgude osa täita õigesti ja pilt on maagiliselt näha
         lblImage.setIcon(imageIcon);
-
         gbc.gridx = 2; // Kolmas veerg
         gbc.gridy = 0; // Esimene rida
         gbc.gridheight = 4; // Label üle 4 või 5 rea kõrge (vajab mängimist)

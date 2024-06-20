@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 public class ButtonSend implements ActionListener, KeyListener {
 
@@ -27,6 +28,7 @@ public class ButtonSend implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("SAADA");
         handleSendAction();
     }
     /**
@@ -50,20 +52,21 @@ public class ButtonSend implements ActionListener, KeyListener {
     }
 
     private void handleSendAction() {
-        System.out.println("Klikk SAADA");
 
-        // Get user input in lowercase
+        // kasutaja sisestus väikeste tähtedega
         String input = view.getGameBoard().getTxtChar().getText().toLowerCase().trim();
-
-        // Clear the text field and reset focus
-        view.getGameBoard().getTxtChar().setText("");
-        view.getGameBoard().getTxtChar().requestFocus();
-
+        // kontroll, kas on 1-kohaline sisestus ja täht
         if (input.length() == 1 && Character.isLetter(input.charAt(0))) {
             processUserInput(input.charAt(0));
+
         } else {
-            JOptionPane.showMessageDialog(view.getGameBoard(), "Sisesta üks täht! Numbrid jm on keelatud!");
+            // kui input ei ole tühi ja kui ei vasta esimese tingimuse nõuetele
+            if (!input.isEmpty()) {
+                JOptionPane.showMessageDialog(view.getGameBoard(), "Sisesta üks täht! Numbrid jm on keelatud!");
+            }
         }
+        view.getGameBoard().getTxtChar().setText("");
+        view.getGameBoard().getTxtChar().requestFocus();
     }
 
     private void processUserInput(char inputChar) {
@@ -78,7 +81,14 @@ public class ButtonSend implements ActionListener, KeyListener {
         }
         if (!found) {
             view.getGameBoard().getLblError().setText(view.getGameBoard().getLblError().getText() + inputChar + " ");
+            model.incrementWrongGuesses();
+            updateImage();
         }
         view.getGameBoard().getLblResult().setText(guessedWord.toString());
+    }
+
+    private void updateImage() {
+        ImageIcon imageIcon = new ImageIcon(Arrays.toString(model.getCurrentImagePath()));
+        view.getGameBoard().getLblImage().setIcon(imageIcon);
     }
 }

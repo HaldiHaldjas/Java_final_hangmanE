@@ -21,9 +21,11 @@ public class Controller {
         view.getGameBoard().getBtnCancel().addActionListener(new ButtonCancel(model, view));
         // saada nupu funktsionaalsus
         view.getGameBoard().getBtnSend().addActionListener(new ButtonSend(model, view));
-
         // enter saada nupu asemel
-        // view.getGameBoard().getTxtChar().addActionListener(new ButtonSend(model, view));
         view.getGameBoard().getTxtChar().getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "sendAction");
+        // piltide vahetus
+        // view.getGameBoard().updateImage(0);
+        // kontroll, kas actionlistener töötab 1 korra
+        // System.out.println("Controller initialized with ButtonSend listener.");
     }
 }

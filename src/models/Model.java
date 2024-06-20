@@ -29,6 +29,8 @@ public class Model {
      */
     private String imagesFolder = "images";
 
+    private int currentWrongGuesses = 0;
+
     /**
      * Pildid õiges järjekorras
      */
@@ -84,13 +86,35 @@ public class Model {
     private void readImagesFolder() {
         File folder  = new File(imagesFolder); // loo kausta objekt
         File[] files = folder.listFiles(); // loeb koik failid objekti list massiivina
-        // lisab imagelisti
+        // lisab piltide listi
         for (File file : Objects.requireNonNull(files)) { // tuleb valida replace, et poleks tyhi
             imageFiles.add(file.getAbsolutePath());
         }
         Collections.sort(imageFiles);
         // System.out.println(imageFiles);
 
+    }
+
+    public String[] getCurrentImagePath() {
+        // piltide indeks on sama, mis valede arvamiste arv
+        int index = getCurrentWrongGuesses();
+        if (index >= 0 && index < imageFiles.size()) {
+            return new String[]{imageFiles.get(index)};
+        }
+        return null;
+    }
+
+    public void incrementWrongGuesses() {
+        currentWrongGuesses++;
+    }
+
+    // Method to retrieve current wrong guesses count
+    public int getCurrentWrongGuesses() {
+        return currentWrongGuesses;
+    }
+
+    public void resetWrongGuesses() {
+        currentWrongGuesses = 0;
     }
 
     /**
@@ -219,6 +243,7 @@ public class Model {
     public String getRandomWord() {
         return randomWord;
     }
+
 
 }
 

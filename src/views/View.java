@@ -112,6 +112,10 @@ public class View extends JFrame {
         gameBoard.getTxtChar().setText(""); // teeb sisestuskasti tyhjaks
     }
 
+    public void clearErrorLabel(){
+        gameBoard.getBtnSend().setEnabled(false);
+    }
+
     // GETTERID Paneelide (vahelehetede)
     public Settings getSettings() {
         return settings;

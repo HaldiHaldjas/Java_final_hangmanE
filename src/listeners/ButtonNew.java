@@ -37,9 +37,20 @@ public class ButtonNew implements ActionListener {
         new Database(model).getWord(model.getSelectedCategory());
         view.getGameBoard().initGame();
         model.formatWordForDisplay(model.getRandomWord());
+        // nulli valed arvamised
+        model.resetWrongGuesses();
+
 
 
         // TODO label tyhjaks, andmebaasist juhuslik sona, sona tahtede arvu jagu allkriipse
+
+    }
+
+    private void startNewGame(){
+        // mudeli reset
+        model.resetWrongGuesses();
+        view.clearErrorLabel();
+        // new word
 
     }
 }
