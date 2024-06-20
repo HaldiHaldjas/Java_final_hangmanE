@@ -5,7 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import helpers.GameTimer;
 import models.datastructures.DataScore;
+import views.View;
 
 /**
  * See klass tegeleb andmebaasi ühenduse ja "igasuguste" päringutega tabelitest.
@@ -24,6 +27,7 @@ public class Database {
      * Loodud mudel
      */
     private Model model;
+    private View view;
 
     /**
      * Klassi andmebaas konstruktor
@@ -32,6 +36,7 @@ public class Database {
     public Database(Model model) {
         this.model = model;
         this.databaseUrl = "jdbc:sqlite:" + model.getDatabaseFile();
+        this.view = view;
 
         /**
          * meetod unikaalsete kategooriate saamiseks
@@ -126,6 +131,31 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+
+    public void saveScoresToDatabase() {
+        int gameTimer = view.getGameTimer();
+        String sql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
+
+        try (Connection conn = this.dbConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            stmt.setString(2, model.getPlayerName());
+            stmt.setString(3, model.getRandomWord());
+            stmt.setString(4, model.getWrongGuesses()); // Assuming this method retrieves the wrong characters
+            stmt.setInt(5, view.getGameTimer());
+
+            stmt.executeUpdate(); // Execute the insert statement
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error inserting scores into database", e);
+        }
+    }
+
+//    private int gametimer() {
+//    }
+
 
 //    private void getWords() {
 //

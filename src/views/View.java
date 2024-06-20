@@ -10,6 +10,7 @@ import views.panels.Settings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -131,10 +132,11 @@ public class View extends JFrame {
 
     /**
      * Mänguaja objekt .stop() . setRunning() jne
+     *
      * @return mänguaja objekt
      */
 
-    public GameTimer getGameTimer() {
+    public int getGameTimer() {
         return gameTimer;
     }
 
@@ -174,17 +176,31 @@ public class View extends JFrame {
     public void showGameEndScreen() {
         gameTimer.setRunning(false);
         getGameTimer().stopTime();
-        // Perform actions to show game end screen
+        String playerName = "";
         String message;
+
         if (model.getCurrentWrongGuesses() >= 11) {
             message = "Mäng läbi! See lõpppes sinu jaoks fataalselt. Õige sõna oli: " + model.getRandomWord();
         } else {
-            message = "Tubli! Arvasid õige sõna ära: " + model.getRandomWord();
+            playerName = JOptionPane.showInputDialog(this, "Congratulations! You guessed the word. Enter your name: ");
+            if (playerName == null || playerName.isEmpty()) {
+                playerName = "Nipitiri";
+            }
+            message = "Palju õnne," + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
+            DataScore newScore = new DataScore(
+                    LocalDateTime.now(), // Current date and time
+                    playerName,
+                    model.getRandomWord(),
+                    model.getWrongGuesses(), // No missed characters recorded here (you can modify this if needed)
+                    getGameTimer()); // Game time in seconds
+            model.getDataScores().add(newScore);
+            updateScoresTable();
+            // saveScoresToDatabase();
+            // muudab tabid taas klikitavals/halvab mängunupud
+            showButtons();
         }
         JOptionPane.showMessageDialog(this, message);
-        // muudab tabid taas klikitavals/halvab mängunupud
-        this.showButtons();  // This method is assumed to be implemented to disable certain UI components
+
+          // This method is assumed to be implemented to disable certain UI components
     }
-
-
 }

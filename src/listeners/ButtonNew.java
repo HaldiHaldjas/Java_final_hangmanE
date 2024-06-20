@@ -40,17 +40,13 @@ public class ButtonNew implements ActionListener {
         // nulli valed arvamised
         model.resetWrongGuesses();
 
-
-
         // TODO label tyhjaks, andmebaasist juhuslik sona, sona tahtede arvu jagu allkriipse
-
     }
 
-    private void startNewGame(){
-        // mudeli reset
-        model.resetWrongGuesses();
-        view.clearErrorLabel();
-        // new word
-
-    }
+//    private void startNewGame(){
+//        // mudeli reset
+//        model.resetWrongGuesses();
+//        view.clearErrorLabel();
+//        // new word
+//    }
 }

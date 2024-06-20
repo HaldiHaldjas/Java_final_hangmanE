@@ -28,13 +28,15 @@ public class Model {
      */
     private String imagesFolder = "images";
 
-    private final int MAX_WRONG_GUESSES = 11;
-    private int currentWrongGuesses = 0;
+    private final int MAX_WRONG_GUESSES = 11; // maksimaalne valesti arvamiste nr
+    private int currentWrongGuesses = 0; // valesti arvatud korrad
+    private List<Character> wrongGuesses = new ArrayList<>(); // valesti arvatud tähed
 
     /**
      * Pildid õiges järjekorras
      */
     private List<String> imageFiles = new ArrayList<>();
+    private String playerName = "";
 
     // edetabeliga seotud asjad
     /**
@@ -58,6 +60,7 @@ public class Model {
         new Database(this); // Loome andmebaasi ühenduse
         readImagesFolder();
         selectedCategory = chooseCategory; // Vaikimisi "Kõik kategooriad"
+
     }
 
     public List<String> getWords() {
@@ -68,6 +71,10 @@ public class Model {
         this.words = words;
     }
 
+    public List <Character> wrongGuesses() {
+        this.wrongGuesses = new ArrayList<>();
+        return wrongGuesses;
+    }
 
     public String formatWordForDisplay(String word) {
         StringBuilder displayWord = new StringBuilder();
@@ -105,6 +112,11 @@ public class Model {
     public int getCurrentWrongGuesses() {
         return currentWrongGuesses;
     }
+
+    public List<Character> getWrongCharacters() {
+        return wrongGuesses;
+    }
+
 
     public String[] getCurrentImagePath() {
         // piltide indeks on sama, mis valede arvamiste arv
@@ -258,7 +270,28 @@ public class Model {
         return randomWord;
     }
 
+    public String getWrongGuesses() {
+        return wrongGuesses.toString();
+    }
 
+//    public void saveScoresToDatabase() {
+//        this.saveScorestoDatabase = saveScoresToDatabase();
+//    }
+
+    /**Salvestam mängija nime
+     * @param playerName
+     */
+    public void setPlayerName(String playerName){
+        this.playerName = playerName;
+    }
+
+    /**
+     * Meetod tagastab mängija nime
+     * @return
+     */
+    public String getPlayerName(){
+        return this.playerName;
+    }
 }
 
 
