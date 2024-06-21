@@ -134,7 +134,8 @@ public class Database {
 
 
     public void saveScoresToDatabase() {
-        int gameTimer = view.getGameTimer();
+        // int gameTimer = view.getGameTimer();
+
         String sql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
 
         try (Connection conn = this.dbConnection();
@@ -144,7 +145,7 @@ public class Database {
             stmt.setString(2, model.getPlayerName());
             stmt.setString(3, model.getRandomWord());
             stmt.setString(4, model.getWrongGuesses()); // Assuming this method retrieves the wrong characters
-            stmt.setInt(5, view.getGameTimer());
+            stmt.setInt(5, view.getGameTimer().getPlayedTimeInSeconds());
 
             stmt.executeUpdate(); // Execute the insert statement
 

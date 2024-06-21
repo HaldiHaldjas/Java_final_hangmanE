@@ -132,12 +132,15 @@ public class View extends JFrame {
 
     /**
      * Mänguaja objekt .stop() . setRunning() jne
-     *
      * @return mänguaja objekt
      */
 
-    public int getGameTimer() {
+    public GameTimer getGameTimer() {
         return gameTimer;
+    }
+
+    public int getGameTimeInSeconds() {
+        return gameTimer.getElapsedTimeInSeconds(); // Assuming such a method exists
     }
 
     public void updateScoresTable() {
@@ -192,7 +195,7 @@ public class View extends JFrame {
                     playerName,
                     model.getRandomWord(),
                     model.getWrongGuesses(), // No missed characters recorded here (you can modify this if needed)
-                    getGameTimer()); // Game time in seconds
+                    getGameTimeInSeconds()); // Game time in seconds
             model.getDataScores().add(newScore);
             updateScoresTable();
             // saveScoresToDatabase();
