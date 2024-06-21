@@ -1,6 +1,7 @@
 package models;
 
 import models.datastructures.DataScore;
+import views.View;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -48,16 +49,19 @@ public class Model {
      * Edetabeli andmed listis
      */
     private List<DataScore> dataScores = new ArrayList<>();
-
     private List<String> words = new ArrayList<>();
+    private Database database;
 
     public Model(String dbName) {
         if(dbName != null) {
             this.databaseFile = dbName;
         }
+
         // System.out.println(this.databaseFile); // testib käsurealt käivitamist
 
-        new Database(this); // Loome andmebaasi ühenduse
+        this.database = new Database(this); // Create and store the Database instance
+
+        // new Database(this); // Loome andmebaasi ühenduse
         readImagesFolder();
         selectedCategory = chooseCategory; // Vaikimisi "Kõik kategooriad"
 
@@ -108,16 +112,6 @@ public class Model {
         }
     }
 
-    // Method to retrieve current wrong guesses count
-    public int getCurrentWrongGuesses() {
-        return currentWrongGuesses;
-    }
-
-    public List<Character> getWrongCharacters() {
-        return wrongGuesses;
-    }
-
-
     public String[] getCurrentImagePath() {
         // piltide indeks on sama, mis valede arvamiste arv
         int index = getCurrentWrongGuesses();
@@ -141,6 +135,18 @@ public class Model {
         return false; // Game continues
     }
 
+    public void saveScoreToDatabase(DataScore score) {
+        database.saveScoreToDatabase(score);
+    }
+
+    // Method to retrieve current wrong guesses count
+    public int getCurrentWrongGuesses() {
+        return currentWrongGuesses;
+    }
+
+    public List<Character> getWrongCharacters() {
+        return wrongGuesses;
+    }
 
     /**
      * Rippmenüü esimene valik enne kategooriaid
@@ -271,12 +277,8 @@ public class Model {
     }
 
     public String getWrongGuesses() {
-        return wrongGuesses.toString();
-    }
+        return wrongGuesses.toString();}
 
-//    public void saveScoresToDatabase() {
-//        this.saveScorestoDatabase = saveScoresToDatabase();
-//    }
 
     /**Salvestam mängija nime
      * @param playerName

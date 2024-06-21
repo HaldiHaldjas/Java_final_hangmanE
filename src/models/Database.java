@@ -132,9 +132,12 @@ public class Database {
         }
     }
 
-
-    public void saveScoresToDatabase() {
+    public void saveScoreToDatabase(DataScore score) {
         // int gameTimer = view.getGameTimer();
+        if (view == null) {
+            System.err.println("Vaade on null Database.saveScoreToDatabase() meetodis");
+            return;
+        }
 
         String sql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
 
@@ -142,13 +145,18 @@ public class Database {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+            // stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             stmt.setString(2, model.getPlayerName());
             stmt.setString(3, model.getRandomWord());
             stmt.setString(4, model.getWrongGuesses()); // Assuming this method retrieves the wrong characters
             stmt.setInt(5, view.getGameTimer().getPlayedTimeInSeconds());
 
-            stmt.executeUpdate(); // Execute the insert statement
+            int rowsInserted = stmt.executeUpdate(); // Execute the insert statement
 
+            if (rowsInserted > 0) {
+                System.out.println("A new score was inserted successfully.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Error inserting scores into database", e);
         }

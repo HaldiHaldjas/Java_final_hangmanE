@@ -38,7 +38,6 @@ public class View extends JFrame {
      * Sellele paneelile tulevad kolm eelnevalt loodud vahelehte (Settings, GameBoard ja LeaderBoard)
      */
     private JTabbedPane tabbedPane;
-    // TODO Realtimer ka
     private GameTimer gameTimer;
     private RealTimer realTimer;
 
@@ -152,7 +151,6 @@ public class View extends JFrame {
             String chars = ds.missedChars();
             String humanTime = convertSecToMMSS(ds.timeSeconds()); // sekundid taisarvuna pandud meetodi sisse
             model.getDtm().addRow(new Object[]{gameTime, name, word, chars, humanTime});
-
         }
     }
     /**
@@ -185,20 +183,27 @@ public class View extends JFrame {
         if (model.getCurrentWrongGuesses() >= 11) {
             message = "Mäng läbi! See lõpppes sinu jaoks fataalselt. Õige sõna oli: " + model.getRandomWord();
         } else {
-            playerName = JOptionPane.showInputDialog(this, "Congratulations! You guessed the word. Enter your name: ");
+            playerName = JOptionPane.showInputDialog(this, "Tubli! Arvasid sõna ära. Sisesta oma nimi: ");
             if (playerName == null || playerName.isEmpty()) {
                 playerName = "Nipitiri";
             }
-            message = "Palju õnne," + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
+            message = "Palju õnne, " + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
             DataScore newScore = new DataScore(
                     LocalDateTime.now(), // Current date and time
                     playerName,
                     model.getRandomWord(),
                     model.getWrongGuesses(), // No missed characters recorded here (you can modify this if needed)
-                    getGameTimeInSeconds()); // Game time in seconds
+                    gameTimer.getElapsedTimeInSeconds()
+            );
+
+            // Print DataScore to console
+            System.out.println("New DataScore created:");
+            System.out.println(newScore);
+
             model.getDataScores().add(newScore);
+            model.saveScoreToDatabase(newScore);
             updateScoresTable();
-            // saveScoresToDatabase();
+
             // muudab tabid taas klikitavals/halvab mängunupud
             showButtons();
         }
