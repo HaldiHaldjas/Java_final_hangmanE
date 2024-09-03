@@ -1,9 +1,7 @@
 package controllers;
 
-import listeners.ButtonCancel;
-import listeners.ButtonNew;
-import listeners.ButtonSend;
-import listeners.ComboboxChange;
+import listeners.*;
+import models.Database;
 import models.Model;
 import views.View;
 
@@ -14,6 +12,8 @@ import java.awt.event.ActionListener;
 public class Controller {
     // konstruktor
     public Controller(Model model, View view) {
+        new Database(model);
+
         view.getSettings().getCmbCategory().addItemListener(new ComboboxChange(model));
         // uue mängu funktsionaalsus
         view.getSettings().getBtnNewGame().addActionListener(new ButtonNew(model, view));
@@ -27,5 +27,7 @@ public class Controller {
         // view.getGameBoard().updateImage(0);
         // kontroll, kas actionlistener töötab 1 korra
         // System.out.println("Controller initialized with ButtonSend listener.");
+        // Sätete lehe edetabeli nupu funktsionaalsus
+        view.getSettings().getBtnLeaderboard().addActionListener(new ButtonScores(model, view));
     }
 }

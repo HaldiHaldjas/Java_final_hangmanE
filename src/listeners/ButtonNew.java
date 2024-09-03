@@ -2,12 +2,18 @@ package listeners;
 
 import models.Database;
 import models.Model;
+import models.datastructures.DataWords;
 import views.View;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
 public class ButtonNew implements ActionListener {
+    static {
+        Logger.getLogger(ButtonNew.class.getName());
+    }
     // klassisisesed muutujad
     private Model model;
     private View view;
@@ -31,22 +37,25 @@ public class ButtonNew implements ActionListener {
             view.getGameTimer().stopTime();
             view.getGameTimer().setRunning(false);
         }
-        /**
-         * genereerib andmebaasist valitud kategooria alusel juhusliku sõna
-         */
-        new Database(model).getWord(model.getSelectedCategory());
-        view.getGameBoard().initGame();
-        model.formatWordForDisplay(model.getRandomWord());
-        // nulli valed arvamised
-        model.resetWrongGuesses();
 
-        // TODO label tyhjaks, andmebaasist juhuslik sona, sona tahtede arvu jagu allkriipse
+        /**
+         * loob andmebasiga ühenduse ja genereerib andmebaasist valitud kategooria alusel juhusliku sõna
+         */
+        DataWords word = Database.getInstance(model).getWord(model.getSelectedCategory());
+
+        if (word != null) {
+            // Alustab mängu uue sõnaga
+            model.startNewGame(word.word());
+            view.setFirstPicture();
+            view.getGameBoard().displayWord(word.word());
+            view.getGameBoard().getLblError().setText("");
+            model.resetWrongGuesses();
+            model.formatWordForDisplay(model.getRandomWord());
+
+        } else {
+            JOptionPane.showMessageDialog(view, "Sõna ei ole valitud!");
+        }
+
     }
 
-//    private void startNewGame(){
-//        // mudeli reset
-//        model.resetWrongGuesses();
-//        view.clearErrorLabel();
-//        // new word
-//    }
 }

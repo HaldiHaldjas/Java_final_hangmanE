@@ -1,45 +1,32 @@
 package models;
 
 import models.datastructures.DataScore;
-import views.View;
-
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Model {
+
     private final String chooseCategory = "Kõik kategooriad";
     /**
-     * See on vaikimisi andmebaasi fail kui käsurealt uut ei leotud. Andmebaasi tabelit nimed ja struktuurid peavad
+     * See on vaikimisi andmebaasi fail
+     * kui käsurealt uut ei leitud. Andmebaasi tabelit nimed ja struktuurid peavad
      * samad olema, kuid andmed võivad erinevad olla.
      *  hangman_words_ee.db - Eestikeelsed sõnad, edetabel on tühi
      *  hangman_words_en.db - Inglisekeelsed sõnad, edetabel on tühi
      *  hangman_words_ee_test.db - Eestikeelsed sõnad, edetabel EI ole tühi
      */
+
     private String databaseFile = "hangman_words_ee_test.db";
+
     private String selectedCategory; // Vaikimisi valitud kategooria
     private String[] cmbCategories; // Rippmenüü sisu
-    private String randomWord;
 
     /**
-     * Kaust, kus on võllapuu pildid
+     * Siia pannakse võllapuu pildid õiges järjekorras
      */
-    private String imagesFolder = "images";
+    private final List<String> imageFiles = new ArrayList<>();
 
-    private final int MAX_WRONG_GUESSES = 11; // maksimaalne valesti arvamiste nr
-    private int currentWrongGuesses = 0; // valesti arvatud korrad
-    private List<Character> wrongGuesses = new ArrayList<>(); // valesti arvatud tähed
-
-    /**
-     * Pildid õiges järjekorras
-     */
-    private List<String> imageFiles = new ArrayList<>();
-    private String playerName = "";
-
-    // edetabeliga seotud asjad
     /**
      * Edetabeli mugavaks kasutamiseks
      */
@@ -49,36 +36,64 @@ public class Model {
      * Edetabeli andmed listis
      */
     private List<DataScore> dataScores = new ArrayList<>();
-    private List<String> words = new ArrayList<>();
-    private Database database;
+    private String randomWord; // väljavalitud sõna
+    private char[] guessedChars;
+    private int currentWrongGuesses = 0; // valesti arvatud korrad
+    private List<Character> wrongGuesses;
+
+    private String playerName = "";
+
 
     public Model(String dbName) {
         if(dbName != null) {
             this.databaseFile = dbName;
         }
 
-        // System.out.println(this.databaseFile); // testib käsurealt käivitamist
-
-        this.database = new Database(this); // Create and store the Database instance
-
-        // new Database(this); // Loome andmebaasi ühenduse
-        readImagesFolder();
-        selectedCategory = chooseCategory; // Vaikimisi "Kõik kategooriad"
-
+        // System.out.println(this.databaseFile); // testib käsurealt DB käivitamist
+        new Database(this); // Loome andmebaasi ühenduse
+        readImagesFolder(); // loeb võllapuu pildid mällu
+        selectedCategory = chooseCategory; // Valib vaikimisi "Kõik kategooriad"
     }
 
-    public List<String> getWords() {
-        return words;
+    /**
+     * Loeb võllapuu pildid kaustast ja lisab need imageFiles listi
+     */
+    private void readImagesFolder() {
+        String imagesFolder = "images";
+        File folder  = new File(imagesFolder); // loo kausta objekt
+        File[] files = folder.listFiles(); // loeb koik failid objekti list massiivina
+        // lisab piltide listi
+        for (File file : Objects.requireNonNull(files)) { // tuleb valida replace, et poleks tyhi
+            imageFiles.add(file.getAbsolutePath());
+        }
+        Collections.sort(imageFiles); // sorteerib suurenevasse järjekorda
+        // System.out.println(imageFiles);
     }
 
-    public void setWords(List<String> words) {
-        this.words = words;
-    }
-
-    public List <Character> wrongGuesses() {
+    /**
+     * Uue mängu seadistus
+     * @param randomWord sõna asendamine alakriipsudega
+     */
+    public void startNewGame(String randomWord){
+        this.randomWord = randomWord;
+        this.guessedChars = new char[randomWord.length()];
+        Arrays.fill(guessedChars, '_');
         this.wrongGuesses = new ArrayList<>();
-        return wrongGuesses;
+        currentWrongGuesses = 0;
     }
+
+//    public List<String> getWords() {
+//        return words;
+//    }
+//
+//    public void setWords(List<String> words) {
+//        this.words = words;
+//    }
+
+//    public String <Character> wrongGuesses() {
+//        this.wrongGuesses = new ArrayList<>();
+//        return wrongGuesses;
+//    }
 
     public String formatWordForDisplay(String word) {
         StringBuilder displayWord = new StringBuilder();
@@ -94,19 +109,12 @@ public class Model {
         return displayWord.toString().trim();
     }
 
-    private void readImagesFolder() {
-        File folder  = new File(imagesFolder); // loo kausta objekt
-        File[] files = folder.listFiles(); // loeb koik failid objekti list massiivina
-        // lisab piltide listi
-        for (File file : Objects.requireNonNull(files)) { // tuleb valida replace, et poleks tyhi
-            imageFiles.add(file.getAbsolutePath());
-        }
-        Collections.sort(imageFiles);
-        // System.out.println(imageFiles);
-
-    }
-
     public void incrementWrongGuesses() {
+        // todo - kas seda on ka vaja? getterid ja setterid v'lja
+        // private List<String> words = new ArrayList<>();
+        // todo max wrong guesses - kas on ikka vajalik?
+        // maksimaalne valesti arvamiste nr
+        int MAX_WRONG_GUESSES = 11;
         if (currentWrongGuesses < MAX_WRONG_GUESSES) {
             currentWrongGuesses++;
         }
@@ -126,26 +134,39 @@ public class Model {
     }
 
     public boolean checkGameEnd(String guessedWord) {
-        if (guessedWord != null && guessedWord.equalsIgnoreCase(randomWord)) {
+        if (guessedWord != null && guessedWord.equalsIgnoreCase(randomWord) || currentWrongGuesses == 11) {
+            System.out.println("Mäng läbi!");
+
+            // model.saveScoreToDatabase(new DataScore);
+
             return true; // Guessed word matches the random word, game ends
         }
+
+        // Reached maximum wrong guesses, game ends
         if (currentWrongGuesses >= 11) {
+            System.out.println("Mäng läbi valed arvamised");
             return true; // Reached maximum wrong guesses, game ends
+            // model.saveScoreToDatabase(score);
+
         }
         return false; // Game continues
     }
 
-    public void saveScoreToDatabase(DataScore score) {
-        database.saveScoreToDatabase(score);
-    }
+//    public void saveScoreToDatabase(DataScore score) {
+//        if (this.database != null) { // Safety check to avoid NullPointerException
+//            this.database.saveScoreToDatabase(score);
+//        } else {
+//            System.err.println("Andmebaasiga ei saanud ühendust!");
+//            }
+//        }
+//    }
+
+//    public void saveScoresToDatabase(DataScore dataScore) {
+//    }
 
     // Method to retrieve current wrong guesses count
     public int getCurrentWrongGuesses() {
         return currentWrongGuesses;
-    }
-
-    public List<Character> getWrongCharacters() {
-        return wrongGuesses;
     }
 
     /**
@@ -168,12 +189,13 @@ public class Model {
      * Seadistab uue andmebaasi failinime, kui see saadi käsurealt
      * @param databaseFile uus andmebaasi failinimi
      */
-    public void setDatabaseFile(String databaseFile) {
-        this.databaseFile = databaseFile;
-    }
+
+//    public void setDatabaseFile(String databaseFile) {
+//        this.databaseFile = databaseFile;
+//    }
 
     /**
-     * Valitud kategoori
+     * Valitud kategooria
      * @return tagastab valitud kategooria
      */
     public String getSelectedCategory() {
@@ -202,7 +224,7 @@ public class Model {
      * */
 
     public void setCmbCategories(String[] cmbCategories) {
-      this.cmbCategories = cmbCategories;
+        this.cmbCategories = cmbCategories;
     }
     /**
      * Võllapuu pildid
@@ -243,24 +265,6 @@ public class Model {
         this.dataScores = dataScores;
     }
 
-
-    /**
-     * Loeb sõnad andmebaasist
-     * @return sõnad
-     */
-
-//    public void getDatabaseWords(List<String> words) {
-//        this.words = words;
-//    }
-
-    /**
-     * andmebaasi sõnad edasiseks kui vaja
-     */
-//    public void setDataWords(List<String> words) {
-//        this.words = words;
-//    }
-//
-
     /**
      * Loeb sisse database klassist tuleva juhusliku sõna
      * @return word
@@ -294,12 +298,5 @@ public class Model {
     public String getPlayerName(){
         return this.playerName;
     }
+
 }
-
-
-
-
-
-
-
-

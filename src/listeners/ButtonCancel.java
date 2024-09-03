@@ -21,5 +21,6 @@ public class ButtonCancel implements ActionListener {
         view.showButtons();
         view.getGameTimer().stopTime();
         view.getGameTimer().setRunning(false);
+        model.resetWrongGuesses();
     }
 }

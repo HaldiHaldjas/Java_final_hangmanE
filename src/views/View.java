@@ -4,11 +4,13 @@ import helpers.GameTimer;
 import helpers.RealTimer;
 import models.Model;
 import models.datastructures.DataScore;
+
 import views.panels.GameBoard;
 import views.panels.LeaderBoard;
 import views.panels.Settings;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,24 +23,24 @@ public class View extends JFrame {
     /**
      * Klassisisene, mille väärtus saadakse VIew konstruktorist ja loodud MainApp-is
      */
-    private Model model;
+    private final Model model;
     /**
      * Vaheleht (TAB) Seaded ehk avaleht
      */
-    private Settings settings;
+    private final Settings settings;
     /**
      * Vaheleht (TAB) Mängulaud
      */
-    private GameBoard gameBoard;
+    private final GameBoard gameBoard;
     /**
      * Vaheleht (TAB) Edetabel
      */
-    private LeaderBoard leaderBoard;
+    private final LeaderBoard leaderBoard;
     /**
      * Sellele paneelile tulevad kolm eelnevalt loodud vahelehte (Settings, GameBoard ja LeaderBoard)
      */
     private JTabbedPane tabbedPane;
-    private GameTimer gameTimer;
+    private final GameTimer gameTimer;
     private RealTimer realTimer;
 
     /**
@@ -50,8 +52,8 @@ public class View extends JFrame {
 
         setTitle("Poomismäng 2024 õpilased"); // JFrame titelriba tekst
         setPreferredSize(new Dimension(500, 250));
-        // TODO arenduse lõpus keela akna suurendamine
-        // setResizable(false);
+
+        setResizable(false);
         getContentPane().setBackground(new Color(250,210,205)); // JFrame taustavärv (rõõsa)
 
         // Loome kolm vahelehte (JPanel)
@@ -78,8 +80,7 @@ public class View extends JFrame {
         tabbedPane.addTab("Mängulaud", gameBoard); // Vaheleht Mängulaud paneeliga gameBoard
         tabbedPane.addTab("Edetabel", leaderBoard); // Vaheleht Mängulaud paneeliga gameBoard
 
-        // TODO arenduse lõpus mängulaua vahelehte klikkida ei saa
-        // tabbedPane.setEnabledAt(1, false); // Vahelehte mängulaud ei saa klikkida
+        tabbedPane.setEnabledAt(1, false); // Vahelehte mängulaud ei saa klikkida
     }
 
     /**
@@ -112,19 +113,21 @@ public class View extends JFrame {
         gameBoard.getTxtChar().setText(""); // teeb sisestuskasti tyhjaks
     }
 
+    // todo kustutada voi rakendada
     public void clearErrorLabel(){
         gameBoard.getBtnSend().setEnabled(false);
     }
 
-    // GETTERID Paneelide (vahelehetede)
+    //  Paneelide vahelehtede GETTERID
+
     public Settings getSettings() {
         return settings;
     }
-
+    // todo 16 gameboard usage 8 asemel - miski on topelt
     public GameBoard getGameBoard() {
         return gameBoard;
     }
-
+    // todo kasutamata funktsioon
     public LeaderBoard getLeaderBoard() {
         return leaderBoard;
     }
@@ -134,15 +137,21 @@ public class View extends JFrame {
      * @return mänguaja objekt
      */
 
+    // todo 11 usaget 14 asemel
     public GameTimer getGameTimer() {
         return gameTimer;
     }
 
+    // todo kasutamata funktsioon
     public int getGameTimeInSeconds() {
         return gameTimer.getElapsedTimeInSeconds(); // Assuming such a method exists
     }
 
     public void updateScoresTable() {
+        // todo - 2 rida lisandusi
+        DefaultTableModel dtm = model.getDtm();
+        dtm.setRowCount(0);
+
         for(DataScore ds : model.getDataScores()) {
             String gameTime = ds.gameTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
             // System.out.println(gameTime);
@@ -151,6 +160,7 @@ public class View extends JFrame {
             String chars = ds.missedChars();
             String humanTime = convertSecToMMSS(ds.timeSeconds()); // sekundid taisarvuna pandud meetodi sisse
             model.getDtm().addRow(new Object[]{gameTime, name, word, chars, humanTime});
+
         }
     }
     /**
@@ -164,6 +174,15 @@ public class View extends JFrame {
         int sec = seconds % 60;
         return String.format("%02d:%02d", min, sec);
     }
+
+    /**
+     * Kuvab uue mängu puhul pildi nr 1
+     */
+    public void setFirstPicture(){
+        ImageIcon imageIcon = new ImageIcon(model.getImageFiles().getFirst());
+        getGameBoard().getLblImage().setIcon(imageIcon);
+    }
+
 
     public void updateImage() {
         // int wrongGuesses = model.getCurrentWrongGuesses();
@@ -188,27 +207,27 @@ public class View extends JFrame {
                 playerName = "Nipitiri";
             }
             message = "Palju õnne, " + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
-            DataScore newScore = new DataScore(
+            DataScore score = new DataScore(
                     LocalDateTime.now(), // Current date and time
                     playerName,
                     model.getRandomWord(),
-                    model.getWrongGuesses(), // No missed characters recorded here (you can modify this if needed)
+                    model.getWrongGuesses(),
                     gameTimer.getElapsedTimeInSeconds()
             );
 
             // Print DataScore to console
             System.out.println("New DataScore created:");
-            System.out.println(newScore);
+            System.out.println(score);
 
-            model.getDataScores().add(newScore);
-            model.saveScoreToDatabase(newScore);
+            model.getDataScores().add(score);
+            // model.saveScoreToDatabase(score);
+
             updateScoresTable();
-
             // muudab tabid taas klikitavals/halvab mängunupud
             showButtons();
         }
         JOptionPane.showMessageDialog(this, message);
 
-          // This method is assumed to be implemented to disable certain UI components
     }
+
 }

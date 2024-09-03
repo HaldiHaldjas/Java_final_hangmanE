@@ -1,5 +1,6 @@
 package listeners;
 
+import models.Database;
 import models.Model;
 import views.View;
 
@@ -74,7 +75,9 @@ public class ButtonSend implements ActionListener, KeyListener {
         StringBuilder guessedWord = new StringBuilder(view.getGameBoard().getLblResult().getText());
         boolean found = false;
 
+        // Iterate over the letters in the word
         for (int i = 0; i < word.length(); i++) {
+            // Check if the current letter matches the input character
             if (Character.toLowerCase(word.charAt(i)) == inputChar) {
                 found = true;
                 guessedWord.setCharAt(2 * i, word.charAt(i));
@@ -84,13 +87,26 @@ public class ButtonSend implements ActionListener, KeyListener {
             view.getGameBoard().getLblError().setText(view.getGameBoard().getLblError().getText() + inputChar + " ");
             model.incrementWrongGuesses();
             view.updateImage();
+
+            // Check if the number of wrong guesses has reached the limit
+            if (model.getCurrentWrongGuesses() >= 11) {
+                // End the game if maximum wrong guesses reached
+                view.showGameEndScreen();
+                return; // Exit early to prevent further processing
+            }
         }
         view.getGameBoard().getLblResult().setText(guessedWord.toString());
+        // Database.getInstance(model).saveScoreToDatabase(model.getPlayerName(), model.getRandomWord().toLowerCase(), model.getWrongGuesses(), view.getGameTimer().getPlayedTimeInSeconds());
+        // Database.getInstance(model).saveScore(playerName, model.getCurrentWord().toLowerCase(), model.getWrongGuesses().toString(), view.getGameTimer().getPlayedTimeInSeconds());
+        // String formattedWrongGuesses = model.getWrongGuesses().toString(); // Adjust this if needed
 
+        // Database.getInstance(model).saveScoreToDatabase(view.getName(), guessedWord.toString(), model.getWrongGuesses(), view.getGameTimeInSeconds());
         // Check if the game should end based on the guessed word
         if (model.checkGameEnd(guessedWord.toString().replaceAll("\\s+", ""))) {
             // Game should end, perform end game actions
             view.showGameEndScreen();
+            view.showButtons();
+            System.out.println("Mang labi!");
         }
     }
 }

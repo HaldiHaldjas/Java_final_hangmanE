@@ -23,22 +23,18 @@ public class LeaderBoard extends JPanel {
      * Klassisisene vaade, mille väärtus saadakse otse View-st
      */
     private final View view;
-
     /**
      *  Tabeli päis, mida naeb edetabeli vahelehel
      */
-
-    private String[] heading = new String[]{"Kuupäev", "Nimi", "Sõna", "Tähed", "Mänguaeg"};
+    private static String[] heading = new String[]{"Kuupäev", "Nimi", "Sõna", "Tähed", "Mänguaeg"};
     /**
      * Loome tabeli teostuse päisega, kuid andmeid ei ole
      * */
-
-    private DefaultTableModel dtm = new DefaultTableModel(heading, 0);
+    private DefaultTableModel dtm;
     /**
      * Loome tabeli dtm baasil
      * */
-    private JTable table = new JTable(dtm);
-
+    private static JTable table;
 
     /**
      * Leaderboard konstruktor
@@ -55,13 +51,16 @@ public class LeaderBoard extends JPanel {
         setBackground(new Color(250, 150, 215)); // Leaderboard paneeli taustavärv
         setBorder(new EmptyBorder(5, 5, 5, 5));
 
+        this.dtm = new DefaultTableModel(heading, 0);
+        this.table = new JTable(dtm);
+
         model.setDtm(dtm); // dtm on klassisisene
         createLeaderboard(); // Loob edetabeli alumise meetodi alusel
 
     }
 
     private void createLeaderboard() {
-        // vajadusel ativeeruv paremas serves kerimisriba
+        // vajadusel aktiveerub paremas servas kerimisriba
         JScrollPane sp = new JScrollPane(table);
         add(sp, BorderLayout.CENTER); // keskele, kuna CENTER ise suureneb
 
@@ -75,19 +74,21 @@ public class LeaderBoard extends JPanel {
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(4).setCellRenderer(cellRenderer);
+        loadData();
         // table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
         // cellRenderer.setHorizontalAlignment(JLabel.LEFT);
         // table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
-
+    }
         // Kirjuta tabelist sisu mudelisse
+    private void loadData() {
         new Database(model).selectScores(); // teeb andmebaasi faili meetodi
         // kontrolli, kas on andmeid ja uuenda tabelit
         if (!model.getDataScores().isEmpty()) { // kui list pole tyhi
-            view.updateScoresTable();
+        view.updateScoresTable();
+        // view.showLeaderboard();
+
         } else {
             JOptionPane.showMessageDialog(view, "Esmalt tuleb mangida!");
         }
-
     }
-
 }

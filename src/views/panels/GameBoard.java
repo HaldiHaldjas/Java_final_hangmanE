@@ -140,11 +140,6 @@ public class GameBoard extends JPanel {
         components.add(btnCancel, gbc);
     }
 
-//    public void updateImage(int imageIndex) {
-//        ImageIcon imageIcon = new ImageIcon(model.getImageFiles().get(imageIndex));
-//        lblImage.setIcon(imageIcon);
-//    }
-
     /**
      * Loob võllapuu pildikasti kus näitab jooksvat pilti
      * @param components kuhu lisatakse komponent (JLabel)
@@ -187,57 +182,16 @@ public class GameBoard extends JPanel {
     }
 
     /**
-     * Mängu initsialiseerimine
-     * */
-    public void initGame() {
-
-        // andmebaasist kategooria alusel valitud sõna
-        String word = model.getRandomWord();
-        if(word != null) {
-            model.setRandomWord(word);
-            System.out.println("Sõna edukalt valitud " + word);
-        } else {
-            word = "Sõna ei õnnestunud valida!(initGame)";
-            model.setRandomWord(word);
-            System.out.println(word);
+     * Kuvab äraarvatava sõna
+     * @param word Sõna, mida kuvatakse alakriipsudena
+     */
+    public void displayWord(String word) {
+        StringBuilder underscores = new StringBuilder();
+        for (char _ : word.toCharArray()) {
+            underscores.append("_ ");
         }
-        // System.out.println("word from initGame" + this.getRandomWord());
-        updateLblResult(word);
-        //
+        lblResult.setText(underscores.toString().trim());
     }
-
-    public void updateLblResult(String word) {
-
-        if (word != null) {
-            String formattedWord = model.formatWordForDisplay(word);
-            lblResult.setText(formattedWord);
-            System.out.println("Juhuslikult valitud ja vormindatud sõna: " + formattedWord);
-        } else {
-            lblResult.setText("Sõna ei õnnestunud valida!");
-        }
-    }
-
-//    public void updateLblResult(String word) {
-//        if (word != null) {
-//            StringBuilder formattedWord = new StringBuilder();
-//            for (int i = 0; i < word.length(); i++) {
-//                if (Character.isLetter(word.charAt(i))) {
-//                    formattedWord.append("_ ");
-//                } else {
-//                    formattedWord.append(word.charAt(i)).append(" ");
-//                }
-//            }
-//            lblResult.setText(formattedWord.toString().trim());
-//            System.out.println("Juhuslikult valitud sõna: " + formattedWord.toString().trim());
-//        } else {
-//            lblResult.setText("Sõna ei õnnestunud valida!");
-//
-//        }
-//    }
-
-//    private void createNewResultPlace(JPanel pnlResult) {
-//
-//    }
 
     // Komponentide getterid
 
