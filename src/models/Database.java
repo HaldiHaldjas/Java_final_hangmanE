@@ -35,7 +35,7 @@ public class Database {
     public Database (Model model) {
         this.model = model;
         this.databaseUrl = "jdbc:sqlite:" + model.getDatabaseFile();
-        this.connection = dbConnection();
+        this.connection = createConnection();
         this.selectUniqueCategories();
     }
 
@@ -44,32 +44,27 @@ public class Database {
      * @return andmebaasi ühenduse
      * Meetod kasutab Singletoni mustrit, mis tagab, et klassil on vaid üks ühendus korraga avatud
      * ning sellele saab terve projekti ulatuses ligi.*/
-
-    public static Database getInstance(Model model) {
-        if (instance == null) {
-            instance = new Database(model);
-        }
-        return instance;
-    }
-
-    private Connection dbConnection() {
+    private Connection createConnection() {
         try {
-            Connection connection = DriverManager.getConnection(databaseUrl);
-            // loob sql-lause sisestamiseks objekti
-            Statement stmt = connection.createStatement();
+            Connection conn = DriverManager.getConnection(databaseUrl);
+            Statement stmt = conn.createStatement();
             // timeout - kui kaua peaks ühendust üritama kui tabel on lukus
             stmt.execute("PRAGMA busy_timeout = 10000");
             stmt.close();
-            return connection;
+            return conn;
         } catch (SQLException e) {
             throw new RuntimeException("Andmebaasiga ühendumine ebaõnnestus");
         }
     }
 
+    /**
+     * Kontrollib andmebaasi ühenduse olemasolu
+     * @return connection
+     */
     public synchronized Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
-                connection = dbConnection();
+                connection = createConnection();
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to check or re-establish connection");
@@ -109,33 +104,32 @@ public class Database {
     public synchronized void selectScores() {
         String sql = "SELECT * FROM scores ORDER BY gametime, playertime DESC, playername;";
         List<DataScore> data = new ArrayList<>();
-        try {
 
-            Statement stmt = getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+        try (Statement stmt = getConnection().createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            model.getDataScores().clear(); // tühjenda mudeli listi sisu
+            model.getDataScores().clear(); // Clear the model's data list
 
             while (rs.next()) {
                 String datetime = rs.getString("playertime");
-                // mänguaeg konverteeritakse anbmebaasi ajaga ühilduvaks
                 LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
-                // System.out.println(datetime + " | " + playertime);
                 String playerName = rs.getString("playername");
                 String guessWord = rs.getString("guessword");
                 String wrongChar = rs.getString("wrongcharacters");
                 int timeSeconds = rs.getInt("gametime");
                 data.add(new DataScore(playerTime, playerName, guessWord, wrongChar, timeSeconds));
-                System.out.println("Uus datascore: " + playerName + " " + guessWord + " " + wrongChar + " " + timeSeconds);
-
+                System.out.println("sql:" + sql);
+                System.out.println("datascore: " + data);
+                System.out.println("Uus siit samast datascore: " + playerName + " " + guessWord + " " + wrongChar + " " + timeSeconds);
             }
-            model.setDataScores(data); // Muuda andmeid mudelis, kust saab info katte
 
-            connection.close();
+            model.setDataScores(data); // Update the model with the new data
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     // Päring juhuslik sõna andmebaasist kategooria alusel
     public DataWords getWord(String chosenCategory) {
@@ -170,33 +164,60 @@ public class Database {
     return null;
     }
 
-//    public void saveScoreToDatabase(DataScore score) {
-//        // int gameTimer = view.getGameTimer();
-//        if (view == null) {
-//            System.err.println("Vaade on null Database.saveScoreToDatabase() meetodis");
-//            return;
-//        }
-//
-//        String sql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
-//
-//        try (Connection conn = this.dbConnection();
-//             PreparedStatement stmt = conn.prepareStatement(sql)) {
-//
+    public void saveScoreToDatabase(String playerName, String guessWord, String wrongCharacters, int gameTime) {
+        String insertSQL = "INSERT INTO scores (gametime, playername, word, missedchars, timeseconds) VALUES (?,?,?,?,?)";
+
+        try (Connection conn = getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(insertSQL);
+            stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            stmt.setString(2, playerName);
+            stmt.setString(3, guessWord);
+            stmt.setString(4, formatWrongCharacters(wrongCharacters));
+            stmt.setInt(5, gameTime);
+
+
+//            stmt.setString(1, score.gameTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))); // Format LocalDateTime
+//            stmt.setString(2, score.playerName());
+//            stmt.setString(3, score.word());
+//            stmt.setString(4, score.missedChars());
+//            stmt.setInt(5, score.timeSeconds());
 //            stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//            stmt.setString(2, playerName);
+//            stmt.setString(3, guessWord);
+//            stmt.setString(4, formatWrongCharacters(wrongCharacters));
+//            stmt.setInt(5, gameTime);
+
+            // pstmt.setInt(1, score.timeSeconds());
+//            pstmt.setString(1, gameTime);
+//            pstmt.setString(2, score.playerName());
+//            pstmt.setString(3, score.word());
+//            pstmt.setString(4, missedChars);
+//            pstmt.setString(5, timeseconds);
+
+            stmt.executeUpdate(); // Execute the insert operation
+        } catch (SQLException e) {
+            throw new RuntimeException("Error saving scores into database", e);
+        }
+    }
+//    public void saveScoreToDatabase(DataScore score) {
+//        String insertSQL = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
 //
-//            // stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//            stmt.setString(2, model.getPlayerName());
-//            stmt.setString(3, model.getRandomWord());
-//            stmt.setString(4, model.getWrongGuesses()); // Assuming this method retrieves the wrong characters
-//            stmt.setInt(5, view.getGameTimer().getPlayedTimeInSeconds());
+//        try (Connection conn = getConnection();
+//            PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+//            String playerTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//            String missedChars = String.join(",", score.missedChars());
+//            String gameTime = score.gameTime();
 //
-//            int rowsInserted = stmt.executeUpdate(); // Execute the insert statement
+//            // pstmt.setInt(1, score.timeSeconds());
+//            pstmt.setString(1, playerTime);
+//            pstmt.setString(2, score.playerName());
+//            pstmt.setString(3, score.word());
+//            pstmt.setString(4, missedChars);
+//            pstmt.setString(5, gameTime);
 //
-//            if (rowsInserted > 0) {
-//                System.out.println("A new score was inserted successfully.");
-//            }
+//            pstmt.executeUpdate(); // Execute the insert operation
 //        } catch (SQLException e) {
-//            throw new RuntimeException("Error inserting scores into database", e);
+//            throw new RuntimeException("Error saving scores into database", e);
 //        }
 //    }
 
@@ -207,46 +228,50 @@ public class Database {
      * @param wrongCharacters   Valesti pakutud tähed
      * @param gameTime      Mänguaeg sekundites
      */
-    public synchronized void saveScoreToDatabase(
-            String playerName,
-            String guessWord,
-            String wrongCharacters,
-            int gameTime) {
-        // int gameTimer = view.getGameTimer();
-//        if (view == null) {
-//            System.err.println("Vaade on null Database.saveScoreToDatabase() meetodis");
-//            return;
+//    public synchronized void saveScoreToDatabase(
+//            String playerName,
+//            String guessWord,
+//            String wrongCharacters,
+//            int gameTime) {
+//        // int gameTimer = view.getGameTimer();
+////        if (view == null) {
+////            System.err.println("Vaade on null Database.saveScoreToDatabase() meetodis");
+////            return;
+////        }
+//
+////        DataScore score = new DataScore(
+////                LocalDateTime.now(),
+////                playerName,
+////                model.getRandomWord(),
+////                model.getWrongGuesses(),
+////                gameTimer.getElapsedTimeInSeconds()
+////        );
+//
+//        String sql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
+//        System.out.println("Starting to save score to database..." + sql);
+//        System.out.println("sql from savescores: " + sql);
+//
+//        try {
+//            PreparedStatement stmt = getConnection().prepareStatement(sql);
+//            // String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//            String formattedTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//
+//
+//            stmt.setString(1, formattedTime);
+//            stmt.setString(2, playerName);
+//            stmt.setString(3, guessWord);
+//            stmt.setString(4, formatWrongCharacters(wrongCharacters)); // Assuming this method retrieves the wrong characters
+//            stmt.setInt(5, gameTime);
+//
+//            int rowsInserted = stmt.executeUpdate(); // Execute the insert statement
+//            if (rowsInserted > 0) {
+//                System.out.println("A new score was inserted successfully.");
+//            }
+//            stmt.close();
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error saving scores into database", e);
 //        }
-
-//        DataScore score = new DataScore(
-//                LocalDateTime.now(),
-//                playerName,
-//                model.getRandomWord(),
-//                model.getWrongGuesses(),
-//                gameTimer.getElapsedTimeInSeconds()
-//        );
-
-        String sql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
-        System.out.println("Starting to save score to database..." + sql);
-
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement(sql);
-
-            stmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
-            stmt.setString(2, playerName);
-            stmt.setString(3, guessWord);
-            stmt.setString(4, formatWrongCharacters(wrongCharacters)); // Assuming this method retrieves the wrong characters
-            stmt.setInt(5, gameTime);
-
-            int rowsInserted = stmt.executeUpdate(); // Execute the insert statement
-            if (rowsInserted > 0) {
-                System.out.println("A new score was inserted successfully.");
-            }
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error saving scores into database", e);
-        }
-    }
+//    }
 
     /**
      * @param wrongCharacters Vormistab valesti pakutud tähed array asemel stringina
@@ -256,69 +281,6 @@ public class Database {
         return wrongCharacters.replaceAll("[\\[\\]]", "").replaceAll(", ", ", ");
     }
 
-//    private int gametimer() {
+//    public void saveScoreToDatabase(DataScore score) {
 //    }
-
-
-//    private void getWords() {
-//
-//        String cmbCategories = model.getChooseCategory();
-//        System.out.println(cmbCategories);
-//
-//        String sql = "SELECT word FROM words;";
-//        List<String> words = new ArrayList<>();
-//        try {
-//            Connection connection = this.dbConnection();
-//            Statement stmt = connection.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//
-//            while (rs.next()) {
-//                words.add(rs.getString("word"));
-//            }
-//
-//            model.getDatabaseWords(words);
-//            System.out.println("sõnad andmebaasist" + words);
-//            connection.close();
-//
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-//    public void getWords(String category) {
-//        List<String> words = new ArrayList<>();
-//        String query;
-//
-//        try (Connection connection = dbConnection()) {
-//            if (category.equalsIgnoreCase(model.getChooseCategory())) {
-//                query = "SELECT word FROM words";
-//            } else {
-//                query = "SELECT word FROM words WHERE category = ?";
-//            }
-//
-//            PreparedStatement stmt = connection.prepareStatement(query);
-//            if (!category.equalsIgnoreCase(model.getChooseCategory())) {
-//                stmt.setString(1, category);
-//            }
-//
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                String word = rs.getString("word");
-//                words.add(word);
-//            }
-//
-//            // Print statements for debugging
-//            String selectedCategory = model.getSelectedCategory();
-//            System.out.println("Selected category: " + selectedCategory);
-//            System.out.println("Words from database: " + words);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return words;
-//    }
-
 }

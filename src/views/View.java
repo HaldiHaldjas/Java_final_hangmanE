@@ -159,7 +159,7 @@ public class View extends JFrame {
             String word = ds.word();
             String chars = ds.missedChars();
             String humanTime = convertSecToMMSS(ds.timeSeconds()); // sekundid taisarvuna pandud meetodi sisse
-            model.getDtm().addRow(new Object[]{gameTime, name, word, chars, humanTime});
+            dtm.addRow(new Object[]{gameTime, name, word, chars, humanTime});
 
         }
     }

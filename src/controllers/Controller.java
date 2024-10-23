@@ -10,10 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller {
+    // private final Database database;
     // konstruktor
     public Controller(Model model, View view) {
-        new Database(model);
-
+        // this.database = new Database(model); // uus andmebaasiühendus
+        // combobox
         view.getSettings().getCmbCategory().addItemListener(new ComboboxChange(model));
         // uue mängu funktsionaalsus
         view.getSettings().getBtnNewGame().addActionListener(new ButtonNew(model, view));

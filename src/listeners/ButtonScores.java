@@ -84,10 +84,12 @@ public class ButtonScores implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new Database(model).selectScores();
+        // Database database = model.getDatabase();
+        // database.selectScores();
+
+        // new Database(model).selectScores();
         if (!model.getDataScores().isEmpty()) {
             view.updateScoresTable();
-            // LeaderBoard.createLeaderboard(); // laheb punaseks
             dialogScore.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(view, "Edetabel on veel tühi! Alusta mänguga!");

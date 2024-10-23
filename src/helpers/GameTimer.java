@@ -49,11 +49,6 @@ public class GameTimer {
         });
     }
 
-    public int getElapsedTimeInSeconds() {
-        return getPlayedTimeInSeconds();
-        // Calculate and return the elapsed time in seconds
-        // The implementation depends on how you're tracking time in this class
-    }
     /**
      * Vorminda aeg (minutid ja sekundid) inimlikule vormingule 00:00
      * @return vormindatud mänguaeg
@@ -114,6 +109,12 @@ public class GameTimer {
      */
     public int getPlayedTimeInSeconds() {
         return (this.minutes * 60) + seconds;
+    }
+
+    public int getElapsedTimeInSeconds() {
+        return getPlayedTimeInSeconds();
+        // Calculate and return the elapsed time in seconds
+        // The implementation depends on how you're tracking time in this class
     }
 
     // TODO Seda meetodit ilmselt ei lähe vaja, kuid edasiarenduse eesmärgil jätame. See pole "lollikindel".

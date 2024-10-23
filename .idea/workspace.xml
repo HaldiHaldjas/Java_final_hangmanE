@@ -4,22 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="tulemuse edetabelisse kirjutamine 2">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hangman_words_ee_test.db-journal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/listeners/ButtonScores.java" afterDir="false" />
+    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="kaputt version">
+      <change afterPath="$PROJECT_DIR$/hangman_words_ee_test1.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hangman_words_ee_test.db" beforeDir="false" afterPath="$PROJECT_DIR$/hangman_words_ee_test.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hangman_words_ee_test.db-journal" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/listeners/ButtonCancel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonCancel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/GameTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/GameTimer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/listeners/ButtonNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/listeners/ButtonScores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonScores.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/listeners/ButtonSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonSend.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/panels/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/panels/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/panels/LeaderBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/panels/LeaderBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +52,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -72,7 +74,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Marko/Documents/JavaApps/Hangman_2024&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/haldi/Desktop/KehtnaTAK23/Java/Java_final_hangmanEllam&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -90,6 +92,9 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="listeners" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Marko\Documents\JavaApps\Hangman_2024_Student" />
     </key>
@@ -106,8 +111,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
       </set>
     </attachedChunks>
   </component>
@@ -127,6 +132,16 @@
       <workItem from="1725380438957" duration="3847000" />
       <workItem from="1725386426301" duration="8209000" />
       <workItem from="1725394728092" duration="102000" />
+      <workItem from="1725394952235" duration="2009000" />
+      <workItem from="1727774209165" duration="1355000" />
+      <workItem from="1727783909100" duration="8000" />
+      <workItem from="1729590684492" duration="58000" />
+      <workItem from="1729590799200" duration="2365000" />
+      <workItem from="1729593379342" duration="5239000" />
+      <workItem from="1729601892518" duration="4852000" />
+      <workItem from="1729675130530" duration="40000" />
+      <workItem from="1729675225326" duration="3946000" />
+      <workItem from="1729679183754" duration="27246000" />
     </task>
     <task id="LOCAL−00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -213,7 +228,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718966225629</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="kaputt version">
+      <option name="closed" value="true" />
+      <created>1725394981312</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725394981312</updated>
+    </task>
+    <task id="LOCAL-00013" summary="kaputt version">
+      <option name="closed" value="true" />
+      <created>1725394989181</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725394989181</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +274,31 @@
     <MESSAGE value="tulemuse andmebaasi kirjutamine" />
     <MESSAGE value="tulemuse edetabelisse kirjutamine" />
     <MESSAGE value="tulemuse edetabelisse kirjutamine 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="tulemuse edetabelisse kirjutamine 2" />
+    <MESSAGE value="kaputt version" />
+    <option name="LAST_COMMIT_MESSAGE" value="kaputt version" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.time.format.DateTimeParseException" package="java.time.format" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/models/Database.java</url>
+          <line>283</line>
+          <properties class="models.Database">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/models/Database.java</url>
+          <line>184</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
