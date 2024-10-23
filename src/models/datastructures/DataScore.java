@@ -5,21 +5,21 @@ import java.time.LocalDateTime;
 /**
  * See klass on edetabeli jaoks
  *
- * @param gameTime    Mägu lõpu aeg (mis kuupäeval ja kellaajal mäng lõppes)
+ * @param playerTime    Mägu lõpu aeg (mis kuupäeval ja kellaajal mäng lõppes)
  * @param playerName  Mängija nimi
- * @param word        Äraarvatav sõna
- * @param missedChars Valesti sisestatud märgid
- * @param timeSeconds Mängu aeg sekundites. Näiteks 69 (s.o. 1 min ja 9 sek)
+ * @param guessWord        Äraarvatav sõna
+ * @param wrongCharacters Valesti sisestatud märgid
+ * @param gameTime Mängu aeg sekundites. Näiteks 69 (s.o. 1 min ja 9 sek)
  */
-public record DataScore(LocalDateTime gameTime, String playerName, String word, String missedChars, int timeSeconds) {
+public record DataScore(LocalDateTime playerTime, String playerName, String guessWord, String wrongCharacters, int gameTime) {
     /**
      * Klassi konstruktor
      *
-     * @param gameTime    mänguaegu lõpu aeg
+     * @param playerTime    mänguaegu lõpu aeg
      * @param playerName  mängija nimi
-     * @param word        äraarvatav sõna
-     * @param missedChars puuduvad tähed
-     * @param timeSeconds mängu aeg sekundites
+     * @param guessWord        äraarvatav sõna
+     * @param wrongCharacters puuduvad tähed
+     * @param gameTime mängu aeg sekundites
      */
     public DataScore {
     }

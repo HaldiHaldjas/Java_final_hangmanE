@@ -153,13 +153,18 @@ public class View extends JFrame {
         dtm.setRowCount(0);
 
         for(DataScore ds : model.getDataScores()) {
-            String gameTime = ds.gameTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
-            // System.out.println(gameTime);
+            String gameTimeFormatted;
+
+            // Assuming ds.gameTime() returns an int representing seconds
+            int seconds = ds.gameTime(); // or however you retrieve gametime
+            gameTimeFormatted = convertSecToMMSS(seconds); // Convert seconds to MM:SS format
+
+
             String name = ds.playerName();
-            String word = ds.word();
-            String chars = ds.missedChars();
-            String humanTime = convertSecToMMSS(ds.timeSeconds()); // sekundid taisarvuna pandud meetodi sisse
-            dtm.addRow(new Object[]{gameTime, name, word, chars, humanTime});
+            String word = ds.guessWord();
+            String chars = ds.wrongCharacters();
+            String humanTime = convertSecToMMSS(ds.gameTime()); // sekundid taisarvuna pandud meetodi sisse
+            dtm.addRow(new Object[]{gameTimeFormatted, name, word, chars, humanTime});
 
         }
     }

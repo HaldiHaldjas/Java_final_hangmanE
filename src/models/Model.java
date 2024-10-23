@@ -41,12 +41,7 @@ public class Model {
         this.elapsedTime = 0;
     }
 
-    // Method to update elapsed time
-    public int getElapsedTimeInSeconds() {
-        // Calculate the elapsed time in seconds
-        elapsedTime = (int) ((System.currentTimeMillis() - startTime) / 1000);
-        return elapsedTime;
-    }
+
 
     private void readImagesFolder() {
         String imagesFolder = "images";
@@ -102,8 +97,8 @@ public class Model {
 
         // kontrollib, kas mäng on läbi
 
-        // if (isGameOver()) {
         if (guessedWord.toString().replaceAll("\\s+", "").equals(word)) { // Remove spaces before comparison
+            int elapsedTime = getElapsedTimeInSeconds();
 
             // if (model.checkGameEnd(guessedWord.toString().replaceAll("\\s+", ""))) {
             view.showGameEndScreen();
@@ -115,34 +110,31 @@ public class Model {
                     this.getPlayerName(),
                     this.getRandomWord().toLowerCase(),
                     this.getWrongGuesses(),
-                    this.getElapsedTimeInSeconds() // Use elapsed time from GameTimer
+                    elapsedTime // Use elapsed time from GameTimer
             );
             saveScoreToDatabase(score);
-
-            // salvestab mängutulemused andmebaasi
-            // Database database = new Database(this);
-            // int elapsedTimed = this.getPlayedtimeInSeconds();
-//            int elapsedTime = this.gameTimer.getElapsedTimeInSeconds();
-//            database.saveScoreToDatabase(
-//                    this.getPlayerName(),
-//                    this.getRandomWord().toLowerCase(),
-//                    this.getWrongGuesses(),
-//                    elapsedTime
-//                    );
         }
     }
+
 
     public void saveScoreToDatabase(DataScore score) {
         if (this.database != null) {
             this.database.saveScoreToDatabase(
                     score.playerName(),
-                    score.word(),
-                    score.missedChars(),
-                    score.timeSeconds()
+                    score.guessWord(),
+                    score.wrongCharacters(),
+                    score.gameTime()
             );
         } else {
             System.err.println("Andmebaasiga ei saanud ühendust!");
         }
+    }
+
+    // Method to update elapsed time
+    public int getElapsedTimeInSeconds() {
+        // Calculate the elapsed time in seconds
+        elapsedTime = (int) ((System.currentTimeMillis() - startTime) / 1000);
+        return elapsedTime;
     }
 
     public String formatWordForDisplay(String word) {
