@@ -150,16 +150,15 @@ public class View extends JFrame {
         dtm.setRowCount(0);
 
         for(DataScore ds : model.getDataScores()) {
-            String gameTimeFormatted;
+            // String gameTimeFormatted;
 
-            // Assuming ds.gameTime() returns an int representing seconds
-            int seconds = ds.gameTime(); // or however you retrieve gametime
-            gameTimeFormatted = convertSecToMMSS(seconds); // Convert seconds to MM:SS format
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+            String dateTimeFormatted = ds.playerTime().format(formatter); // Format the date
             String name = ds.playerName();
             String word = ds.guessWord();
             String chars = ds.wrongCharacters();
             String humanTime = convertSecToMMSS(ds.gameTime()); // sekundid taisarvuna pandud meetodi sisse
-            dtm.addRow(new Object[]{gameTimeFormatted, name, word, chars, humanTime});
+            dtm.addRow(new Object[]{dateTimeFormatted, name, word, chars, humanTime});
 
         }
     }
@@ -183,16 +182,17 @@ public class View extends JFrame {
         getGameBoard().getLblImage().setIcon(imageIcon);
     }
 
-
+    /**
+     * Uuendab pilte vastavalt valesti arvatud tähtedele
+     * */
     public void updateImage() {
-        // int wrongGuesses = model.getCurrentWrongGuesses();
         String[] imagePath = model.getCurrentImagePath();
         if (imagePath != null && imagePath.length > 0) {
             ImageIcon imageIcon = new ImageIcon(imagePath[0]);
             getGameBoard().getLblImage().setIcon(imageIcon);
         }
     }
-
+    /**Annab mängijale teada, kui mänd läbi saab*/
     public void showGameEndScreen() {
         gameTimer.setRunning(false);
         getGameTimer().stopTime();
@@ -215,10 +215,6 @@ public class View extends JFrame {
                     model.getWrongGuesses(),
                     gameTimer.getElapsedTimeInSeconds()
             );
-//
-//            // Print DataScore to console
-//            System.out.println("New DataScore created:");
-          System.out.println(score);
 
             model.createAndSaveScore(playerName, gameTimer.getElapsedTimeInSeconds());
 

@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="double entries">
+    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="should work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hangman_words_ee_test.db" beforeDir="false" afterPath="$PROJECT_DIR$/hangman_words_ee_test.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/listeners/ButtonNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/panels/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/panels/GameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/panels/LeaderBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/panels/LeaderBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +136,7 @@
       <workItem from="1729675130530" duration="40000" />
       <workItem from="1729675225326" duration="3946000" />
       <workItem from="1729679183754" duration="35881000" />
-      <workItem from="1730380129051" duration="28164000" />
+      <workItem from="1730380129051" duration="29693000" />
     </task>
     <task id="LOCAL−00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -283,7 +287,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730407923895</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="should work">
+      <option name="closed" value="true" />
+      <created>1730411270658</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1730411270658</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +331,8 @@
     <MESSAGE value="database gets locked 2" />
     <MESSAGE value="database not locked" />
     <MESSAGE value="double entries" />
-    <option name="LAST_COMMIT_MESSAGE" value="double entries" />
+    <MESSAGE value="should work" />
+    <option name="LAST_COMMIT_MESSAGE" value="should work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

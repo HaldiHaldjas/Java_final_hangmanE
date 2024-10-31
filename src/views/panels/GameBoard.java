@@ -103,11 +103,6 @@ public class GameBoard extends JPanel {
          */
         txtChar = new JTextField("", 10) {
             // fookuse seadmine on ButtonSend klassis
-//            @Override
-//            public void addNotify() { // tekstikursor vilkuma, fookus
-//                super.addNotify();
-//                requestFocus();
-//            }
         };
 
         txtChar.setEnabled(false); // Vaikimisi lahtrisse kirjuta ei saa
@@ -156,7 +151,6 @@ public class GameBoard extends JPanel {
         components.add(lblImage, gbc);
 
     }
-
     /**
      * Tegemist on ajutise pildiga kuna piltide kausta (images) pole algselt loetud
      * @return pilt suurusega 125x125 punase värviga
@@ -194,7 +188,6 @@ public class GameBoard extends JPanel {
     }
 
     // Komponentide getterid
-
     public JLabel getLblGameTime() {
         return lblGameTime;
     }

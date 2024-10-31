@@ -59,6 +59,7 @@ public class LeaderBoard extends JPanel {
 
     }
 
+    /**Loob edetabeli tabi */
     private void createLeaderboard() {
         // vajadusel aktiveerub paremas servas kerimisriba
         JScrollPane sp = new JScrollPane(table);
@@ -75,9 +76,7 @@ public class LeaderBoard extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(4).setCellRenderer(cellRenderer);
         loadData();
-        // table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
-        // cellRenderer.setHorizontalAlignment(JLabel.LEFT);
-        // table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+
     }
         // Kirjuta tabelist sisu mudelisse
     private void loadData() {

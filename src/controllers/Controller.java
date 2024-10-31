@@ -1,13 +1,10 @@
 package controllers;
 
 import listeners.*;
-import models.Database;
 import models.Model;
 import views.View;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Controller {
 

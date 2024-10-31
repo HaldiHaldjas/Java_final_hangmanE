@@ -39,13 +39,6 @@ public class Database {
         this.selectUniqueCategories();
     }
 
-//    public static Database getInstance(Model model) {
-//        if (instance == null) {
-//            instance = new Database(model);
-//        }
-//        return instance;
-//    }
-
     /**
      * Loob andmebaasiga ühenduse
      * @return andmebaasi ühenduse
@@ -164,15 +157,13 @@ public class Database {
                 return null; // Or throw a custom exception
             }
 
-            // String word = rs.getString("word");
-            // model.setRandomWord(word); // juhuslik sõna kirjutatakse modelisse
-            // System.out.println("Juhuslik sõna DB klassist: " + word);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
             // return null;
     }
 
+    /** Salvestab mängu andmed andmebaasi*/
     public synchronized void saveScoreToDatabase(String playerName, String guessWord, String wrongCharacters, int gameTime) {
         String insertSql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
 

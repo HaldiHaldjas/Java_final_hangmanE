@@ -2,7 +2,6 @@ package listeners;
 
 import models.Database;
 import models.Model;
-import models.Database;
 import models.datastructures.DataWords;
 import views.View;
 
@@ -24,10 +23,10 @@ public class ButtonNew implements ActionListener {
         this.model = model;
         this.view = view;
     }
-
+/** Nupp, mis alustab uut mängu*/
     @Override
     public void actionPerformed(ActionEvent e) {
-        // System.out.println("Klikk new game");
+
         view.hideButtons();
         // kontroll, kas aeg jookseb
         if(!view.getGameTimer().isRunning()) { // kui mängu aeg ei jookse
