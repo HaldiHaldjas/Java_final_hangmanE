@@ -81,6 +81,10 @@ public class Model {
             }
         }
         if (!found) {
+
+            if (!wrongGuesses.contains(inputChar)) { // Avoid duplicates
+                wrongGuesses.add(inputChar);
+            }
             view.getGameBoard().getLblError().setText(view.getGameBoard().getLblError().getText() + inputChar + " ");
             incrementWrongGuesses();
             view.updateImage();
@@ -97,7 +101,6 @@ public class Model {
         }
 
         // kontrollib, kas mäng on läbi
-
         if (guessedWord.toString().replaceAll("\\s+", "").equals(word)) { // Remove spaces before comparison
             int elapsedTime = getElapsedTimeInSeconds();
 
@@ -115,22 +118,8 @@ public class Model {
 //            );
 //            System.out.println("Datascore from model" + score);
 //            saveScoreToDatabase(score);
-            // Example of creating a new DataScore instance when the game ends
 
-            DataScore score = new DataScore(
-                    LocalDateTime.now(),  // Capturing end time
-                    "Player1",            // Player name
-                    "puzzleWord",         // Word that was guessed
-                    "aeiou",              // Incorrect guesses
-                    69                    // Game time in seconds
-            );
-
-// Accessing fields
-            System.out.println("Player Name: " + score.playerName());
-            System.out.println("End Time: " + score.playerTime());
-            System.out.println("Game Time: " + score.gameTime() + " seconds");
-            saveScoreToDatabase(score);
-
+            createAndSaveScore(getPlayerName(), elapsedTime);
         }
     }
 
@@ -144,7 +133,7 @@ public class Model {
         );
 
         // Save the score to the database
-        saveScoreToDatabase(score);
+        saveScoreToDatabaseM(score);
 
         // Optionally, add the score to the dataScores list
         dataScores.add(score);
@@ -155,7 +144,7 @@ public class Model {
     }
 
 
-    public void saveScoreToDatabase(DataScore score) {
+    public void saveScoreToDatabaseM(DataScore score) {
         if (this.database != null) {
             this.database.saveScoreToDatabase(
                     score.playerName(),
@@ -204,6 +193,25 @@ public class Model {
         }
         return null;
     }
+
+//    public String getWrongGuesses() {
+//        StringBuilder wrongGuessesStr = new StringBuilder();
+//        for (char c : wrongGuesses) {
+//            wrongGuessesStr.append(c).append(", ");
+//        }
+//        // Remove the trailing comma and space if any
+//        if (wrongGuessesStr.length() > 2) {
+//            wrongGuessesStr.delete(wrongGuessesStr.length() - 2, wrongGuessesStr.length());
+//        }
+//        return wrongGuessesStr.toString();
+//    }
+    public String getWrongGuesses() {
+        return String.join(", ", wrongGuesses.stream()
+            .map(String::valueOf)
+            .toArray(String[]::new));
+    }
+
+
 
     public void resetWrongGuesses() {
         currentWrongGuesses = 0;
@@ -291,11 +299,6 @@ public class Model {
 
     public void setGuessedWord(String word) {
         this.guessedWord = word;
-    }
-
-
-    public String getWrongGuesses() {
-        return wrongGuesses.toString();
     }
 
     public String getGuessedWord() {

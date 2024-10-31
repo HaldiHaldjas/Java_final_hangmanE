@@ -39,12 +39,12 @@ public class Database {
         this.selectUniqueCategories();
     }
 
-    public static Database getInstance(Model model) {
-        if (instance == null) {
-            instance = new Database(model);
-        }
-        return instance;
-    }
+//    public static Database getInstance(Model model) {
+//        if (instance == null) {
+//            instance = new Database(model);
+//        }
+//        return instance;
+//    }
 
     /**
      * Loob andmebaasiga ühenduse
@@ -108,7 +108,7 @@ public class Database {
      */
     public void selectScores() {
         String sql = "SELECT * FROM scores ORDER BY gametime, playertime DESC, playername;";
-        List<DataScore> data = new ArrayList<>();
+        List<DataScore> scoreData = new ArrayList<>();
 
         try (Statement stmt = getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
@@ -127,15 +127,14 @@ public class Database {
                 String wrongCharacters = rs.getString("wrongcharacters");
                 int gameTime = rs.getInt("gametime");
 
-                // data.add(new DataScore(playerTime, playerName, guessWord, wrongCharacters, gameTime));
-                // System.out.println("datetime", datetime);
-                // System.out.println("playertime", playerTime);
-                System.out.println("sql:" + sql);
-                System.out.println("data: " + data);
-                System.out.println("Uus datascore: " + playerTime + " playertime" + playerName + " " + guessWord + " " + wrongCharacters + " " + gameTime);
+                scoreData.add(new DataScore(playerTime, playerName, guessWord, wrongCharacters, gameTime));
+                System.out.println(rs.getString("guessword"));
+                System.out.println("Vana datascore: playertime: " + playerTime +  ", playername: " + playerName +
+                        ", guessword: " + guessWord  + ", wrongChars: " + wrongCharacters + ", gametime: " + gameTime);
             }
 
-            model.setDataScores(data); // Update the model with the new data
+            model.setDataScores(scoreData); // Update the model with the new data
+            System.out.println("scoredata " + scoreData);
             connection.close();
 
         } catch (SQLException e) {

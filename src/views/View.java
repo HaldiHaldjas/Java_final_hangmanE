@@ -113,7 +113,6 @@ public class View extends JFrame {
         gameBoard.getTxtChar().setText(""); // teeb sisestuskasti tyhjaks
     }
 
-    // todo kustutada voi rakendada
     public void clearErrorLabel(){
         gameBoard.getBtnSend().setEnabled(false);
     }
@@ -123,11 +122,11 @@ public class View extends JFrame {
     public Settings getSettings() {
         return settings;
     }
-    // todo 16 gameboard usage 8 asemel - miski on topelt
+
     public GameBoard getGameBoard() {
         return gameBoard;
     }
-    // todo kasutamata funktsioon
+
     public LeaderBoard getLeaderBoard() {
         return leaderBoard;
     }
@@ -137,18 +136,16 @@ public class View extends JFrame {
      * @return mänguaja objekt
      */
 
-    // todo 11 usaget 14 asemel
     public GameTimer getGameTimer() {
         return gameTimer;
     }
 
-    // todo kasutamata funktsioon
     public int getGameTimeInSeconds() {
         return gameTimer.getElapsedTimeInSeconds(); // Assuming such a method exists
     }
 
     public void updateScoresTable() {
-        // todo - 2 rida lisandusi
+
         DefaultTableModel dtm = model.getDtm();
         dtm.setRowCount(0);
 

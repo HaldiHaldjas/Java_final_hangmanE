@@ -84,10 +84,9 @@ public class ButtonScores implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Database database = model.getDatabase();
-        // database.selectScores();
+        Database database = model.getDatabase();
+        database.selectScores();
 
-        // new Database(model).selectScores();
         if (!model.getDataScores().isEmpty()) {
             view.updateScoresTable();
             dialogScore.setVisible(true);
