@@ -117,10 +117,6 @@ public class Database {
             while (rs.next()) {
                 String datetime = rs.getString("playertime");
                 LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-//                LocalDateTime playerTime = LocalDateTime.parse("dd.MM.yyyy HH:mm:ss", formatter);
-
-                // LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm:ss"));
 
                 String playerName = rs.getString("playername");
                 String guessWord = rs.getString("guessword");
@@ -128,13 +124,9 @@ public class Database {
                 int gameTime = rs.getInt("gametime");
 
                 scoreData.add(new DataScore(playerTime, playerName, guessWord, wrongCharacters, gameTime));
-                System.out.println(rs.getString("guessword"));
-                System.out.println("Vana datascore: playertime: " + playerTime +  ", playername: " + playerName +
-                        ", guessword: " + guessWord  + ", wrongChars: " + wrongCharacters + ", gametime: " + gameTime);
             }
 
             model.setDataScores(scoreData); // Update the model with the new data
-            System.out.println("scoredata " + scoreData);
             connection.close();
 
         } catch (SQLException e) {

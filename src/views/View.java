@@ -206,18 +206,19 @@ public class View extends JFrame {
             if (playerName == null || playerName.isEmpty()) {
                 playerName = "Nipitiri";
             }
-            message = "Palju õnne, " + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
-//            DataScore score = new DataScore(
-//                    LocalDateTime.now(), // Current date and time
-//                    playerName,
-//                    model.getRandomWord(),
-//                    model.getWrongGuesses(),
-//                    gameTimer.getElapsedTimeInSeconds()
-//            );
+            message = "message Palju õnne, " + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
+
+            DataScore score = new DataScore(
+                    LocalDateTime.now(), // Current date and time
+                    playerName,
+                    model.getRandomWord(),
+                    model.getWrongGuesses(),
+                    gameTimer.getElapsedTimeInSeconds()
+            );
 //
 //            // Print DataScore to console
 //            System.out.println("New DataScore created:");
-//            System.out.println(score);
+          System.out.println(score);
 
             model.createAndSaveScore(playerName, gameTimer.getElapsedTimeInSeconds());
 

@@ -119,7 +119,7 @@ public class Model {
 //            System.out.println("Datascore from model" + score);
 //            saveScoreToDatabase(score);
 
-            createAndSaveScore(getPlayerName(), elapsedTime);
+            // createAndSaveScore(getPlayerName(), elapsedTime);
         }
     }
 
@@ -127,6 +127,7 @@ public class Model {
         DataScore score = new DataScore(
                 LocalDateTime.now(), // Current date and time
                 playerName,
+                // this.getPlayerName(),
                 getRandomWord(),
                 getWrongGuesses(),
                 elapsedTime
@@ -152,6 +153,7 @@ public class Model {
                     score.wrongCharacters(),
                     score.gameTime()
             );
+
         } else {
             System.err.println("Andmebaasiga ei saanud ühendust!");
         }
