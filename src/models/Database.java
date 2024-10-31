@@ -114,15 +114,29 @@ public class Database {
             model.getDataScores().clear(); // Clear the model's data list
 
             while (rs.next()) {
+                // String dateTime = rs.getString("playertime");
+                // String playerTime = "";
+                // String playerTime = "01.01.2022 12:12:11";
+
+                // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+                // String formattedDate = playerTime.format(String.valueOf(formatter));
+                // System.out.println(formattedDate);
+
                 String datetime = rs.getString("playertime");
-                LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+                // LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+                LocalDateTime playerTime = LocalDateTime.parse("03.10.2024 19:39:08", formatter);
+
+                // LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm:ss"));
 
                 String playerName = rs.getString("playername");
                 String guessWord = rs.getString("guessword");
                 String wrongCharacters = rs.getString("wrongcharacters");
                 int gameTime = rs.getInt("gametime");
 
-                data.add(new DataScore(playerTime, playerName, guessWord, wrongCharacters, gameTime));
+                // data.add(new DataScore(playerTime, playerName, guessWord, wrongCharacters, gameTime));
+                // System.out.println("datetime", datetime);
+                // System.out.println("playertime", playerTime);
                 System.out.println("sql:" + sql);
                 System.out.println("data: " + data);
                 System.out.println("Uus datascore: " + playerTime + " playertime" + playerName + " " + guessWord + " " + wrongCharacters + " " + gameTime);

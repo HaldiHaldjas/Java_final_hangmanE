@@ -24,6 +24,7 @@ public class Model {
     private int currentWrongGuesses = 0;
     private List<Character> wrongGuesses;
     private String playerName = "";
+    private String playerTime = "";
     // private GameTimer gameTimer;
 
     // Variables for timing
@@ -105,15 +106,52 @@ public class Model {
             view.showButtons();
             System.out.println("Mang labi!");
             // Create a DataScore record here
+//            DataScore score = new DataScore(
+//                    LocalDateTime.now(), // Current time as game end time
+//                    this.getPlayerName(),
+//                    this.getRandomWord().toLowerCase(),
+//                    this.getWrongGuesses(),
+//                    elapsedTime // Use elapsed time from GameTimer
+//            );
+//            System.out.println("Datascore from model" + score);
+//            saveScoreToDatabase(score);
+            // Example of creating a new DataScore instance when the game ends
+
             DataScore score = new DataScore(
-                    LocalDateTime.now(), // Current time as game end time
-                    this.getPlayerName(),
-                    this.getRandomWord().toLowerCase(),
-                    this.getWrongGuesses(),
-                    elapsedTime // Use elapsed time from GameTimer
+                    LocalDateTime.now(),  // Capturing end time
+                    "Player1",            // Player name
+                    "puzzleWord",         // Word that was guessed
+                    "aeiou",              // Incorrect guesses
+                    69                    // Game time in seconds
             );
+
+// Accessing fields
+            System.out.println("Player Name: " + score.playerName());
+            System.out.println("End Time: " + score.playerTime());
+            System.out.println("Game Time: " + score.gameTime() + " seconds");
             saveScoreToDatabase(score);
+
         }
+    }
+
+    public void createAndSaveScore(String playerName, int elapsedTime) {
+        DataScore score = new DataScore(
+                LocalDateTime.now(), // Current date and time
+                playerName,
+                getRandomWord(),
+                getWrongGuesses(),
+                elapsedTime
+        );
+
+        // Save the score to the database
+        saveScoreToDatabase(score);
+
+        // Optionally, add the score to the dataScores list
+        dataScores.add(score);
+
+        // Print DataScore to console for debugging
+        System.out.println("New DataScore created:");
+        System.out.println(score);
     }
 
 
@@ -128,6 +166,7 @@ public class Model {
         } else {
             System.err.println("Andmebaasiga ei saanud ühendust!");
         }
+
     }
 
     // Method to update elapsed time

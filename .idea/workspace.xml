@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="endiselt mitte päris tööta versioon">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="database gets locked">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/listeners/ButtonNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hangman_words_ee_test.db" beforeDir="false" afterPath="$PROJECT_DIR$/hangman_words_ee_test.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/datastructures/DataScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/datastructures/DataScore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +132,8 @@
       <workItem from="1729601892518" duration="4852000" />
       <workItem from="1729675130530" duration="40000" />
       <workItem from="1729675225326" duration="3946000" />
-      <workItem from="1729679183754" duration="35254000" />
+      <workItem from="1729679183754" duration="35881000" />
+      <workItem from="1730380129051" duration="12677000" />
     </task>
     <task id="LOCAL−00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -245,7 +244,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729706843798</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="database gets locked">
+      <option name="closed" value="true" />
+      <created>1729714891213</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1729714891213</updated>
+    </task>
+    <task id="LOCAL-00016" summary="database gets locked">
+      <option name="closed" value="true" />
+      <created>1729715004126</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1729715004126</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,7 +292,8 @@
     <MESSAGE value="tulemuse edetabelisse kirjutamine 2" />
     <MESSAGE value="kaputt version" />
     <MESSAGE value="endiselt mitte päris tööta versioon" />
-    <option name="LAST_COMMIT_MESSAGE" value="endiselt mitte päris tööta versioon" />
+    <MESSAGE value="database gets locked" />
+    <option name="LAST_COMMIT_MESSAGE" value="database gets locked" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -286,6 +302,11 @@
           <properties class="java.time.format.DateTimeParseException" package="java.time.format" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/models/Database.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

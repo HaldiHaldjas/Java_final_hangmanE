@@ -158,8 +158,6 @@ public class View extends JFrame {
             // Assuming ds.gameTime() returns an int representing seconds
             int seconds = ds.gameTime(); // or however you retrieve gametime
             gameTimeFormatted = convertSecToMMSS(seconds); // Convert seconds to MM:SS format
-
-
             String name = ds.playerName();
             String word = ds.guessWord();
             String chars = ds.wrongCharacters();
@@ -212,20 +210,19 @@ public class View extends JFrame {
                 playerName = "Nipitiri";
             }
             message = "Palju õnne, " + playerName + ", arvasid õige sõna ära: " + model.getRandomWord();
-            DataScore score = new DataScore(
-                    LocalDateTime.now(), // Current date and time
-                    playerName,
-                    model.getRandomWord(),
-                    model.getWrongGuesses(),
-                    gameTimer.getElapsedTimeInSeconds()
-            );
+//            DataScore score = new DataScore(
+//                    LocalDateTime.now(), // Current date and time
+//                    playerName,
+//                    model.getRandomWord(),
+//                    model.getWrongGuesses(),
+//                    gameTimer.getElapsedTimeInSeconds()
+//            );
+//
+//            // Print DataScore to console
+//            System.out.println("New DataScore created:");
+//            System.out.println(score);
 
-            // Print DataScore to console
-            System.out.println("New DataScore created:");
-            System.out.println(score);
-
-            model.getDataScores().add(score);
-            // model.saveScoreToDatabase(score);
+            model.createAndSaveScore(playerName, gameTimer.getElapsedTimeInSeconds());
 
             updateScoresTable();
             // muudab tabid taas klikitavals/halvab mängunupud
