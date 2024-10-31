@@ -56,7 +56,7 @@ public class Database {
             Connection conn = DriverManager.getConnection(databaseUrl);
             Statement stmt = conn.createStatement();
             // timeout - kui kaua peaks ühendust üritama kui tabel on lukus
-            stmt.execute("PRAGMA busy_timeout = 10000");
+            stmt.execute("PRAGMA busy_timeout = 5000");
             stmt.close();
             return conn;
         } catch (SQLException e) {
@@ -96,6 +96,7 @@ public class Database {
             categories.addFirst(model.getChooseCategory()); // "Kõik kategooriad" esimeseks
             String[] result = categories.toArray(new String[0]); // list<String> = string[]
             model.setCmbCategories(result); // seadista kategooriad mudelisse
+            connection.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -114,18 +115,10 @@ public class Database {
             model.getDataScores().clear(); // Clear the model's data list
 
             while (rs.next()) {
-                // String dateTime = rs.getString("playertime");
-                // String playerTime = "";
-                // String playerTime = "01.01.2022 12:12:11";
-
-                // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-                // String formattedDate = playerTime.format(String.valueOf(formatter));
-                // System.out.println(formattedDate);
-
                 String datetime = rs.getString("playertime");
-                // LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-                LocalDateTime playerTime = LocalDateTime.parse("03.10.2024 19:39:08", formatter);
+                LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+//                LocalDateTime playerTime = LocalDateTime.parse("dd.MM.yyyy HH:mm:ss", formatter);
 
                 // LocalDateTime playerTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm:ss"));
 
@@ -143,6 +136,7 @@ public class Database {
             }
 
             model.setDataScores(data); // Update the model with the new data
+            connection.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -188,7 +182,7 @@ public class Database {
             // return null;
     }
 
-    public void saveScoreToDatabase(String playerName, String guessWord, String wrongCharacters, int gameTime) {
+    public synchronized void saveScoreToDatabase(String playerName, String guessWord, String wrongCharacters, int gameTime) {
         String insertSql = "INSERT INTO scores (playertime, playername, guessword, wrongcharacters, gametime) VALUES (?,?,?,?,?)";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(insertSql)){
@@ -203,6 +197,7 @@ public class Database {
             if (rowsAffected > 0) {
                 System.out.println("Data saved successfully");
             }
+            connection.close();
 
         } catch (SQLException e) {
             System.out.println("Error saving data: " + e.getMessage());

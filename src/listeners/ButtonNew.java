@@ -43,7 +43,7 @@ public class ButtonNew implements ActionListener {
         /**
          * loob andmebasiga ühenduse ja genereerib andmebaasist valitud kategooria alusel juhusliku sõna
          */
-        Database database = new Database(model); // uus DB
+        Database database = model.getDatabase(); // uus DB
         DataWords word = null; // words andmebaasist
         try {
             word = database.getWord(model.getSelectedCategory());

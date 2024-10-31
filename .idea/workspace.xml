@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="database gets locked">
+    <list default="true" id="c3a9a89e-df2f-41b6-935e-2b222c675b42" name="Changes" comment="database gets locked 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hangman_words_ee_test.db" beforeDir="false" afterPath="$PROJECT_DIR$/hangman_words_ee_test.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/listeners/ButtonNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/listeners/ButtonNew.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/panels/LeaderBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/panels/LeaderBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,28 +58,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/haldi/Desktop/KehtnaTAK23/Java/Java_final_hangmanEllam&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.MainApp.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/haldi/Desktop/KehtnaTAK23/Java/Java_final_hangmanEllam",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="listeners" />
@@ -133,7 +134,7 @@
       <workItem from="1729675130530" duration="40000" />
       <workItem from="1729675225326" duration="3946000" />
       <workItem from="1729679183754" duration="35881000" />
-      <workItem from="1730380129051" duration="12677000" />
+      <workItem from="1730380129051" duration="15185000" />
     </task>
     <task id="LOCAL−00001" summary="First Commit">
       <option name="closed" value="true" />
@@ -260,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729715004126</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="database gets locked 2">
+      <option name="closed" value="true" />
+      <created>1730394575741</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1730394575741</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +302,8 @@
     <MESSAGE value="kaputt version" />
     <MESSAGE value="endiselt mitte päris tööta versioon" />
     <MESSAGE value="database gets locked" />
-    <option name="LAST_COMMIT_MESSAGE" value="database gets locked" />
+    <MESSAGE value="database gets locked 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="database gets locked 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -302,11 +312,6 @@
           <properties class="java.time.format.DateTimeParseException" package="java.time.format" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/models/Database.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

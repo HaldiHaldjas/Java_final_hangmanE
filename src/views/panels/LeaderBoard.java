@@ -81,7 +81,8 @@ public class LeaderBoard extends JPanel {
     }
         // Kirjuta tabelist sisu mudelisse
     private void loadData() {
-        new Database(model).selectScores(); // teeb andmebaasi faili meetodi
+        Database database = model.getDatabase();
+        database.selectScores(); // teeb andmebaasi faili meetodi
         // kontrolli, kas on andmeid ja uuenda tabelit
         if (!model.getDataScores().isEmpty()) { // kui list pole tyhi
         view.updateScoresTable();

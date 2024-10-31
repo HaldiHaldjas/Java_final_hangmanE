@@ -24,7 +24,7 @@ public class Model {
     private int currentWrongGuesses = 0;
     private List<Character> wrongGuesses;
     private String playerName = "";
-    private String playerTime = "";
+    // private String playerTime = "";
     // private GameTimer gameTimer;
 
     // Variables for timing
